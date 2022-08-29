@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Rubik&display=swap');
 
 html{
   margin: 0%;
@@ -9,7 +9,10 @@ html{
 .App {
   box-sizing: border-box;
   background: #00302E;
-  font-family: 'poppins';
+  font-family: 'Poppins', 'Rubik';
+  /* font-family: 'Rubik', sans-serif; */
   font-style: normal;
+  font-size: 18px;
+  font-weight: 400;
   color: #FFFFFFDE;
 }

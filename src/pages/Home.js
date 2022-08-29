@@ -18,8 +18,6 @@ import Instagram from '../assets/Instagram.svg'
 
 const WrapperMain = styled.div`
 padding:  2.36%;
-font-weight: 500px;
-
 
     header{
         display: flex;
@@ -42,6 +40,10 @@ font-weight: 500px;
         color: #FFFFFFDE;
     }
 
+    .header-links a:hover, .header-links a:active{
+        color: #FBDDBB;
+    }
+
     .header-item-margin{
         margin-right: 2em;
     }
@@ -54,6 +56,12 @@ font-weight: 500px;
         height: 53px;
     }
 
+    .signup-button h3{
+        color: #00302E;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
     .main-top{
         display: flex;
         align-items: center;
@@ -62,12 +70,17 @@ font-weight: 500px;
     }
 
     .main-top h1{
-        font-size: 50px;
+        font-size: 64px;
+        font-weight: 500;
+    }
+
+    .colored-text{
+        color: #E2B887;
     }
 
     .main-top-left{
         flex: 0.7;
-        margin-right: 16em;
+        // margin-right: 16em;
     }
 
     .main-top-left img{
@@ -89,6 +102,17 @@ font-weight: 500px;
         text-align: center;
     }
 
+    .text-center-innerdiv h2{
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    #text-center-innerdiv-pasta, #text-center-innerdiv-meatballs, #text-center-innerdiv-burger {
+        font-size: 27px;
+        font-weight: 700;
+        color: #E2B887;
+    }
+
     .main-next-mid{
         display: flex;
         justify-content: space-between;
@@ -101,6 +125,12 @@ font-weight: 500px;
         align-items: center;
     }
 
+    .main-bottom-info h2{
+        font-size: 36px;
+        font-weight: 700;
+        color: #E2B887;
+    }
+
     .main-bottom-interaction{
         display: flex;
         align-items: center;
@@ -108,10 +138,14 @@ font-weight: 500px;
 
     .main-bottom-interaction input{
         height: 51px;
-        width: 299px;
+        width: 400px;
         border-radius: 5px;
         margin-right: 1em;
         padding-left: 1em;
+        padding-right: 1em;
+        font-family: Rubik;
+        font-size: 18px;
+        font-weight: 400;
     }
 
     .main-bottom-interaction button{
@@ -120,6 +154,15 @@ font-weight: 500px;
         border-radius: 5px;
         background: #FBDDBB;
         border: none;
+        padding: 0;
+    }
+
+    .main-bottom-interaction h3{
+        margin: 0;
+        font-family: Rubik;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: Rubik;
     }
 `
 const WrapperFooter = styled.footer`
@@ -178,7 +221,7 @@ const Home = () => {
             <main>
                     <div className='main-top'>
                         <div className='main-top-left'>
-                            <h1>Order food anytime, anywhere</h1>
+                            <h1>Order <span className='colored-text'>food</span> anytime, anywhere</h1>
                             <p>Browse from our list of specials to place your order and have food <br/> delivered to you in no time. Affordable, tasty and fast!</p>
                             <img src={PlaystoreMain} alt='Download Button'/>
                             <img src={IOSMain} alt='Download Button'/>
@@ -194,17 +237,17 @@ const Home = () => {
                     <div className='main-next-mid'>
                         <div className='text-center-innerdiv'>
                             <img src={HomeMainMid1} alt='Food'/>
-                            <h2>Stir fry Pasta</h2>
+                            <h2 id = 'text-center-innerdiv-pasta'>Stir fry Pasta</h2>
                             <p>Stir fry pasta yada yada yada <br/> because of Sesan</p>
                         </div>
                         <div className='text-center-innerdiv'>
                             <img src={HomeMainMid2} alt='Food'/>
-                            <h2>Meat Balls</h2>
+                            <h2 id='text-center-innerdiv-meatballs'>Meat Balls</h2>
                             <p>Stir fry pasta yada yada yada <br/> because of Sesan</p>
                         </div>
                         <div className='text-center-innerdiv'>
                             <img src={HomeMainMid3} alt='Food'/>
-                            <h2>Burger Meal</h2>
+                            <h2 id='text-center-innerdiv-pasta'>Burger Meal</h2>
                             <p>Stir fry pasta yada yada yada <br/> because of Sesan</p>
                         </div>
                     </div>
@@ -245,8 +288,9 @@ const Home = () => {
                     </div>
                     <div className='footer-top-install-app'>
                         <h4>Install App</h4>
-                        <img src={IOSFooter} alt=''download button className='img-margin-bottom'/>
                         <img src={PlaystoreFooter} alt=''download button className='img-margin-bottom'/>  
+                        <img src={IOSFooter} alt=''download button className='img-margin-bottom'/>
+                        
                     </div>
                 </div>
                 <div className='footer-bottom'>

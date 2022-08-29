@@ -29,27 +29,39 @@ color: #00302EE8;
 }
 
 .form-flex-box input{
-  // padding: 2.5em 30.5em 1.35em 2.5em;
-  width: 30.5em;
+  padding-left: 1em;
+  width: 40.5em;
   height: 4.4375em;
   margin: 1.5em;
   border: 1px solid #FBDDBB82;
   border-radius: 5px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.form-flex-box h2{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 27px;
 }
 
 #login-button{
-  // width: 31em;
+  padding-left: 6px;
+  width: 41.88em;
   color: #FBDDBB;
   background: #00302E;
   text-align: center;
+  border: none;
 }
 
 .margin-right-p{
-  margin-right: 11em;
+  margin-right: 7.35em;
 }
 
 .margin-left-p{
-  margin-left: 9em;
+  margin-left: 7.35em;
 }
 `
 
