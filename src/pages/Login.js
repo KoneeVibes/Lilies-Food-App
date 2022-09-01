@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import LeftBg from '../assets/Login/LeftBg.svg'
+import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Styledwrapper = styled.div`
 background: #FFFFFF;
@@ -58,6 +60,8 @@ color: #00302EE8;
 
 .margin-right-p{
   margin-right: 7.35em;
+  text-decoration: none;
+  color: #00302E;
 }
 
 .margin-left-p{
@@ -66,20 +70,48 @@ color: #00302EE8;
 `
 
 const Login = () => {
+
+  const [userLoginData, setUserLoginData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleFormInput = (e) => {
+    setUserLoginData({
+      ...userLoginData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleFormSubmission = (e) => {
+    e.preventDefault();
+    let user = JSON.parse(sessionStorage.getItem('user'))
+    if (userLoginData.email === '' || userLoginData.password === '') return
+    // console.log(user)
+
+    if (userLoginData?.email === user?.email && userLoginData?.password === user?.password){
+      toast.success('Login Successful!');
+      setInterval(() => {window.location = '/dashboard'}, 1000)
+    }else{
+      toast.error('Wrong Login Details!')
+    }
+  }
+
   return (
     <Styledwrapper>
+      <ToastContainer/>
       <div className='image-flex-box'>
         <img src={LeftBg} alt='Food' height='100%'/>
       </div>
       <div className='form-flex-box'>
         <h2>Welcome Back!</h2>
-        <form>
-           <input type='email' placeholder='Your Email address'/><br/>
-           <input type='password' placeholder='Your Password'/><br/>
-           <input type="submit" value="LOGIN" id='login-button'></input>
+        <form onSubmit={handleFormSubmission}>
+          <input type='email' name='email' placeholder='Your Email address' onChange={handleFormInput}/><br/>
+          <input type='password' name='password' placeholder='Your Password' onChange={handleFormInput}/><br/>
+          <input type="submit" value="LOGIN" id='login-button' ></input>
         </form>
         <div className='bottom-flex'>
-          <div><p className='margin-right-p'>Create an account</p></div> 
+          <div><Link to='/signup' className='margin-right-p'>Create an account</Link></div>
           <div><p className='margin-left-p'>Forgot Password</p></div> 
         </div>
       </div>

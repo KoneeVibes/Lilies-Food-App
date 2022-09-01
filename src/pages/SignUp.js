@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import LeftBg from '../assets/Register/LeftBg.svg'
+import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Styledwrapper = styled.div`
 background: #FFFFFF;
@@ -47,7 +50,7 @@ color: #00302EE8;
   font-size: 27px;
 }
 
-#login-button{
+#sign-up-button{
   padding-left: 6px;
   width: 41.88em;
   color: #FBDDBB;
@@ -56,34 +59,57 @@ color: #00302EE8;
   border: none;
 }
 
-.margin-right-p{
-  margin-right: 7.35em;
+.login-link{
+  text-decoration: none;
+  color: #00302E;
 }
 
-.margin-left-p{
-  margin-left: 7.35em;
-}
 `
 
 const SignUp = () => {
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
+
+  const handleFormInput = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  // console.log(form)
+
+  const handleFormSubmission = (e) => {
+    e.preventDefault();
+    if (form.name === '' || form.email === '' || form.password === '') return
+    sessionStorage.setItem('user', JSON.stringify(form));
+    toast.success('Sign Up Successful!')
+
+    setInterval(() => {
+      window.location = '/login'
+    }, 1500)
+    
+  }
+
   return (
     <Styledwrapper>
+      <ToastContainer />
       <div className='image-flex-box'>
-        <img src={LeftBg} alt='Food' height='100%'/>
+        <img src={LeftBg} alt='Food' height='100%' />
       </div>
       <div className='form-flex-box'>
         <h2>Welcome to Lilies!</h2>
-        <form>
-           <input type='email' placeholder='Your First Name'/><br/>
-           <input type='email' placeholder='Your Email address'/><br/>
-           <input type='password' placeholder='Your Password'/><br/>
-           <input type="submit" value="LOGIN" id='login-button'></input>
+        <form onSubmit={handleFormSubmission}>
+          <input type='text' name='name' placeholder='Your First Name' onChange={handleFormInput} /><br />
+          <input type='email' name='email' placeholder='Your Email address' onChange={handleFormInput} /><br />
+          <input type='password' name='password' placeholder='Your Password' onChange={handleFormInput} /><br />
+          <input type="submit" value="SIGN UP" id='sign-up-button'></input>
         </form>
-        <p>Already have an account. LOGIN</p>
-        {/* <div className='bottom-flex'>
-          <div><p className='margin-right-p'>Create an account</p></div> 
-          <div><p className='margin-left-p'>Forgot Password</p></div> 
-        </div> */}
+        <p>Already have an account. <span><Link to='/login' className='login-link'>LOGIN</Link></span></p>
       </div>
 
     </Styledwrapper>
