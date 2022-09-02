@@ -28,6 +28,17 @@ p{
   justify-content: space-between;
 }
 
+.price{
+  color: rgba(0, 48, 46, 1);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.action-click{
+  color: rgba(6, 231, 117, 1);
+  font-size: 13px;
+  font-weight: 500;
+}
 `
 
 const FoodContainer = ({image, name, text, price}) => {
@@ -37,8 +48,8 @@ const FoodContainer = ({image, name, text, price}) => {
         <h3>{name}</h3>
         <p>{text}</p>
         <div className='bottom-flex-box'>
-          <p>{price}</p>
-          <p>Add to cart</p>
+          <p className='price'>{price}</p>
+          <p className='action-click'>Add to cart</p>
         </div>
     </FoodContainerWrapper>
   )
