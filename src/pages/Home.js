@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/Logo.svg'
@@ -42,6 +42,10 @@ padding:  2.36%;
 
     .header-links a:hover, .header-links a:active{
         color: #FBDDBB;
+    }
+
+    .active-link {
+        color: rgba(251, 221, 187, 1);
     }
 
     .header-item-margin{
@@ -204,7 +208,21 @@ margin: 8em 0em 0em;
 `
 
 const Home = () => {
-  return (
+
+    const homeLink = useRef(null);
+
+    useEffect(() => {
+    
+    const home = homeLink.current;
+
+    if (window.location.pathname === '/'){  
+        home.classList.add('active-link');
+        // console.log(home.textContent
+    }
+
+    }, []);
+  
+    return (
     <>
         <WrapperMain>
             <header>
@@ -213,9 +231,9 @@ const Home = () => {
                     <h2>Lilies</h2>
                 </div>
                 <div className='header-links'>
-                    <Link to='/'><h4 className='header-item-margin'>Home</h4></Link>
-                    <Link to='login'><h4 className='header-item-margin'>Login</h4></Link>
-                    <button className='signup-button'><Link to='signup'><h3>Sign Up</h3></Link></button>
+                    <Link to='/'><h4 className='header-item-margin' ref={homeLink}>Home</h4></Link>
+                    <Link to='login'><h4 className='header-item-margin' id='login-link'>Login</h4></Link>
+                    <button className='signup-button'><Link to='signup'><h3 id='signup-link'>Sign Up</h3></Link></button>
                 </div>
             </header>
             <main>
