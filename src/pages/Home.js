@@ -209,6 +209,9 @@ margin: 8em 0em 0em;
 
 const Home = () => {
 
+    // I used the code below to get the home link since document.getElementById doesn't work with react.
+    // I learnt this from stackoverflow
+
     const homeLink = useRef(null);
 
     useEffect(() => {

@@ -78,7 +78,10 @@ const Login = () => {
 
   const handleFormInput = (e) => {
     setUserLoginData({
+
+      // Used the spread operator to collect already existing values for email and password 
       ...userLoginData,
+      // Then, I would update the userLoginData variable with this line of code;
       [e.target.name]: e.target.value,
     })
   }

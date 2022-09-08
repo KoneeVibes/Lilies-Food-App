@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import Logo from "../assets/Logo.svg"
 import HomeIcon from "../assets/Dashboard/HomeIcon.svg"
@@ -124,14 +124,99 @@ color: #000;
         display: none;
     }
 
-    .item-box{
+    .item-wrapper{
+        // display: flex;
+        // justify-content: center;
+    }
+
+    .item-container{
         position: fixed;
         top: 0;
         right: 0;
-        width: 32%;
+        width: 30%;
         background: rgba(255, 255, 255, 1);
+        padding: 11.25em 2em 10.75em;
+        text-align: center;
+        height: 100vh;
+        overflow-y: hidden;
     }
 
+    .close-button{
+       text-align: left;
+    }
+
+    .cart-bg{
+        // background: rgba(196, 196, 196, 0.42);
+        background: #FBFBFB;
+    }
+
+    .item-container-action-info{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 2.5em;
+    }
+
+    .item-container-buttons{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .container-food-name{
+        font-size: 17px;
+        font-weight: 600;
+        color: rgba(0, 48, 46, 1);
+
+    }
+
+    .container-food-text{
+        font-size: 11px;
+        font-weight: 400;
+    }
+
+    .item-container-action-info h3{
+        font-size: 17px;
+        font-weight: 600;
+        color: rgba(0, 48, 46, 1);
+    }
+
+    .add-subtract-buttons{
+        display: flex;
+        font-family: Poppins;
+    }
+
+    .add-subtract-buttons h3{
+        font-family: Poppins;
+        font-size: 27px;
+        font-weight: 600;
+    }
+
+    .subtract-button, .add-button{
+        background: rgba(243, 194, 148, 1);
+        border: none;
+        cursor: pointer;
+        padding: 0em 1em;
+        font-size: 31px;
+        font-weight: 600;
+    }
+
+    .margin-left{
+        margin-left: 1em;
+    }
+
+    .margin-right{
+        margin-right: 1em;
+    }
+
+    .cart-button{
+        border: none;
+        cursor: pointer;
+        padding: 1em; 
+        background: rgba(0, 48, 46, 1);
+        color: rgba(251, 251, 251, 1);
+        font-size: 13px;
+        font-weight: 600;
+    }
 
 `
 
@@ -146,36 +231,70 @@ const Dashboard = () => {
         { name: <h3>Egg Meal</h3>, image: <EggMeal />, text: <p>This is the best Egg Meal you would ever taste</p>, price: 1000 },
         { name: <h3>Egg Meal</h3>, image: <Sandwich />, text: <p>This is the best Sandwich you would ever taste</p>, price: 1000 },
         { name: <h3>Stew</h3>, image: <Stew />, text: <p>This is the best Stew you would ever taste</p>, price: 1000 },
+    ];
+
+    const foodBoxArray = [
+        // The initial object below is to give the index variable a value on page load
+        { image: <Hamburger />, age: 21 },
+        { image: <Hamburger/>, age: 21 }, 
+        { image: <Pasta/>, age: 26 }, 
+        { image: <ProteinBalls/>, age: 27 },
+        { image: <EggMeal/>, age: 27 },
+        { image: <Sandwich/>, age: 27 },
+        { image: <Stew/>, age: 27 }
     ]
 
-    const testbutton = useRef(null);
+    const cartButton = useRef(null);
     // const order = useRef(null);
     const cart = useRef(null);
     const itemBox = useRef(null);
-
+    const dashboardElement = useRef(null)
+    // Ref: Line61 of FoodContainer.js and 343 of this page.
+    let count = 0;
+    // The code is the beginning of the process of passing a prop value from child to parent;
+    // Refer to line 342-344 of this page and 63, 64 of FoodContainer.js for complete understanding.
+    const [index, setindex] = useState(0)
+    
     useEffect(() => {
-        const button = testbutton.current;
+        const addToCartButton = cartButton.current;
         const cartInfo = cart.current;
         const FoodBox = itemBox.current;
-
-        // console.log(FoodBox)
+        const dashboard = dashboardElement.current
 
         let items = JSON.parse(sessionStorage.getItem('items'));
+
+        // The block of code below would toggle the foodbox on and off at various instances
+        // Ref: Line 62 of FoodContainer.js
+        function toggleClass() {
+            document.body.classList.contains('food-box') ?
+                FoodBox.classList.remove('display-none') : FoodBox.classList.add('display-none');
+
+        }
 
         function addUpItems() {
 
             items = items + 1;
             sessionStorage.setItem('items', items);
             cartInfo.innerHTML = sessionStorage.getItem('items');
-            document.body.classList.contains('food-box') ?
-                FoodBox.classList.remove('display-none') : console.log('jagging')
-
+            document.body.className = ""
         }
-        
+
+        function toggleBgColor() {
+
+            if (document.body.classList.contains('food-box')) {
+                dashboard.classList.add('cart-bg');
+
+            } else {
+                dashboard.classList.remove('cart-bg');
+            }
+        }
+
+        // A way to check for our conditions would be to do so at regular intervals
+        setInterval(toggleClass, 10)
+        setInterval(toggleBgColor, 10)
 
         cartInfo.innerHTML = sessionStorage.getItem('items');
-        button.addEventListener('click', addUpItems)
-
+        addToCartButton.addEventListener('click', addUpItems)
     })
 
 
@@ -208,7 +327,7 @@ const Dashboard = () => {
                         <p ref={cart} className="cart-info"></p>
                     </div>
                 </div>
-                <div className="main">
+                <div className="main" ref={dashboardElement}>
                     <div className="main-top">
                         <div className="main-salutation">
                             <h2>{`Good morning, ${username}!`}</h2>
@@ -219,23 +338,42 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <button ref={testbutton}>Click Me</button>
-
                     <div className="main-food-library">
+
                         {
                             foodArray.map(food => {
-                                // console.log(typeof food.name)
-                                return <FoodContainer image={food.image.type} name={food.name} text={food.text} price={`N${food.price}`} />
+                                // Ref: Lines 61 of FoodContainer.js and 251 of this page
+                                count = count + 1;
+                                // So many prop values are passed in the code below, mostly from parent to child;
+                                // But the last prop takes in a value from a child (Refer to line 64 in FoodContainer.js);
+                                return <FoodContainer image={food.image.type} name={food.name} text={food.text} price={`N${food.price}`} id={count} index={setindex} />
                             })
                         }
                     </div>
 
-                    <div className="display-none item-box" ref={itemBox}>
-                        <img src={Hamburger} alt='hamburger meal' />
-                        <h3>Blueberry Toasts and smoothie</h3>
-                        <p>Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. <br/> The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.
-                        </p>
-                        
+                    <div className="item-wrapper">
+
+                        <div className="display-none item-container" ref={itemBox}>
+                            <img src={foodBoxArray[index].image.type } alt='hamburger meal' />
+                            <h3 className="container-food-name">{foodBoxArray[index].age}</h3>
+
+                            <p className="container-food-text">Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.</p>
+                            <div className="item-container-action-info">
+                                <h3 className="xx">NGN 2000.00</h3>
+                                <h3 className="xx">10-20 Mins</h3>
+                                <h3 className="xx">10 Pcs Avail</h3>
+                            </div>
+                            <div className="item-container-buttons">
+                                <div className="add-subtract-buttons">
+                                    <button className="subtract-button margin-right">-</button>
+                                    <h3>1</h3>
+                                    <button className="add-button margin-left">+</button>
+                                </div>
+
+                                <button className="cart-button" ref={cartButton}>Add to cart</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

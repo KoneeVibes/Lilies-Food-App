@@ -45,8 +45,10 @@ p{
 }
 
 `
+const FoodContainer = ({ image, name, text, price, id, index}) => {
 
-const FoodContainer = ({ image, name, text, price }) => {
+  // The line of code below and useEffect hook would help get the button element since document.getElementById does not work with react.
+  // Then, the other lines of code are relevant actions that would take place upon the click of that button 
 
   const button = useRef(null);
 
@@ -55,8 +57,17 @@ const FoodContainer = ({ image, name, text, price }) => {
     const actionButton = button.current;
 
     function addToggleClass() {
-      document.body.classList.add('food-box')
-      // document.location.reload(true)
+      // The below is the beginning of the process of giving each click event a unique ID
+      // Ref: Line 251,343
+      document.body.classList.add(`${id}`);
+      // Ref: Line 265 of Dashboard.js
+      document.body.classList.add('food-box');
+      // Notice we passed in index as a prop, it is then invoked below with a value for parameter
+      // This is how to pass a prop value from a child to parent
+      // Ref: Lines 342-344 of Dashboard.js
+      // We took advantage of the fact that parseInt() would only return a number here;
+      index(parseInt(document.body.getAttribute('class')));
+
     }
 
     actionButton.addEventListener('click', addToggleClass)
