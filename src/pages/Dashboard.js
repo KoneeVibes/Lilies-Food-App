@@ -135,7 +135,7 @@ color: #000;
         right: 0;
         width: 30%;
         background: rgba(255, 255, 255, 1);
-        padding: 11.25em 2em 10.75em;
+        padding: 6.25em 2em 10.75em;
         text-align: center;
         height: 100vh;
         overflow-y: hidden;
@@ -154,24 +154,27 @@ color: #000;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-top: 2.5em;
+        margin-top: 0.5em;
     }
 
     .item-container-buttons{
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .container-food-name{
         font-size: 17px;
         font-weight: 600;
         color: rgba(0, 48, 46, 1);
-
+        line-height: 33px;
     }
 
     .container-food-text{
         font-size: 11px;
         font-weight: 400;
+        line-height: 27px;
+
     }
 
     .item-container-action-info h3{
@@ -183,9 +186,10 @@ color: #000;
     .add-subtract-buttons{
         display: flex;
         font-family: Poppins;
+        align-items: center;
     }
 
-    .add-subtract-buttons h3{
+    .add-subtract-buttons p{
         font-family: Poppins;
         font-size: 27px;
         font-weight: 600;
@@ -195,7 +199,7 @@ color: #000;
         background: rgba(243, 194, 148, 1);
         border: none;
         cursor: pointer;
-        padding: 0em 1em;
+        padding: 0.18em 1em;
         font-size: 31px;
         font-weight: 600;
     }
@@ -211,7 +215,7 @@ color: #000;
     .cart-button{
         border: none;
         cursor: pointer;
-        padding: 1em; 
+        padding: 15px 37px; 
         background: rgba(0, 48, 46, 1);
         color: rgba(251, 251, 251, 1);
         font-size: 13px;
@@ -225,24 +229,16 @@ const Dashboard = () => {
     const username = JSON.parse(sessionStorage.getItem('user')).name;
 
     const foodArray = [
-        { name: <h3>Hamburger</h3>, image: <Hamburger />, text: <p>This is the best Hamburger you would ever taste</p>, price: 1000 },
-        { name: <h3>Pasta</h3>, image: <Pasta />, text: <p>This is the best Pasta you would ever taste</p>, price: 1000 },
-        { name: <h3>Protein Balls</h3>, image: <ProteinBalls />, text: <p>This is the best Protein Ball you would ever taste</p>, price: 1000 },
-        { name: <h3>Egg Meal</h3>, image: <EggMeal />, text: <p>This is the best Egg Meal you would ever taste</p>, price: 1000 },
-        { name: <h3>Egg Meal</h3>, image: <Sandwich />, text: <p>This is the best Sandwich you would ever taste</p>, price: 1000 },
-        { name: <h3>Stew</h3>, image: <Stew />, text: <p>This is the best Stew you would ever taste</p>, price: 1000 },
+        { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.'},
+        { name: 'Pasta', image: <Pasta />, introText: <p>This is the best Pasta you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
+        { name: 'Protein Balls', image: <ProteinBalls />, introText: <p>This is the best Protein Ball you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
+        { name: 'Egg Meal', image: <EggMeal />, introText: <p>This is the best Egg Meal you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
+        { name: 'Sandwich', image: <Sandwich />, introText: <p>This is the best Sandwich you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
+        { name: 'Stew', image: <Stew />, introText: <p>This is the best Stew you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
     ];
 
-    const foodBoxArray = [
-        // The initial object below is to give the index variable a value on page load
-        { image: <Hamburger />, age: 21 },
-        { image: <Hamburger/>, age: 21 }, 
-        { image: <Pasta/>, age: 26 }, 
-        { image: <ProteinBalls/>, age: 27 },
-        { image: <EggMeal/>, age: 27 },
-        { image: <Sandwich/>, age: 27 },
-        { image: <Stew/>, age: 27 }
-    ]
+    const foodBoxArray = [].concat(foodArray);
+    foodBoxArray.unshift({ name: <h3>Hamburger</h3>, image: <Hamburger />, text: <p>This is the best Hamburger you would ever taste</p>, price: 1000 })
 
     const cartButton = useRef(null);
     // const order = useRef(null);
@@ -346,7 +342,7 @@ const Dashboard = () => {
                                 count = count + 1;
                                 // So many prop values are passed in the code below, mostly from parent to child;
                                 // But the last prop takes in a value from a child (Refer to line 64 in FoodContainer.js);
-                                return <FoodContainer image={food.image.type} name={food.name} text={food.text} price={`N${food.price}`} id={count} index={setindex} />
+                                return <FoodContainer image={food.image.type} name={food.name} text={food.introText} price={`N${food.price}`} id={count} index={setindex} />
                             })
                         }
                     </div>
@@ -354,23 +350,22 @@ const Dashboard = () => {
                     <div className="item-wrapper">
 
                         <div className="display-none item-container" ref={itemBox}>
-                            <img src={foodBoxArray[index].image.type } alt='hamburger meal' />
-                            <h3 className="container-food-name">{foodBoxArray[index].age}</h3>
-
-                            <p className="container-food-text">Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.</p>
+                            <img src={foodBoxArray[index].image.type} alt='hamburger meal' width = "230px" height = "230px" />
+                            <h3 className="container-food-name">{foodBoxArray[index].name}</h3>
+                            <p className="container-food-text">{foodBoxArray[index].mainText}</p>
                             <div className="item-container-action-info">
-                                <h3 className="xx">NGN 2000.00</h3>
+                                <h3 className="xx">{`NGN${foodBoxArray[index].price}`}</h3>
                                 <h3 className="xx">10-20 Mins</h3>
                                 <h3 className="xx">10 Pcs Avail</h3>
                             </div>
                             <div className="item-container-buttons">
                                 <div className="add-subtract-buttons">
-                                    <button className="subtract-button margin-right">-</button>
-                                    <h3>1</h3>
-                                    <button className="add-button margin-left">+</button>
+                                    <p className="subtract-button margin-right">-</p>
+                                    <p>1</p>
+                                    <p className="add-button margin-left">+</p>
                                 </div>
-
-                                <button className="cart-button" ref={cartButton}>Add to cart</button>
+                                <p className="cart-button" ref={cartButton}>Add to cart</p>
+                                {/* <p className="cart-button" >Add to cart</p> */}
                             </div>
                         </div>
 

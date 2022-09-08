@@ -78,7 +78,7 @@ const FoodContainer = ({ image, name, text, price, id, index}) => {
     <FoodContainerWrapper>
       <img src={image} alt='Food' />
       <h3>{name}</h3>
-      <p>{text}</p>
+      <p style={{ lineHeight: '21px' }}>{text}</p>
       <div className='bottom-flex-box'>
         <p className='price'>{price}</p>
         <button className='action-button' ref={button}>Add to cart</button>
