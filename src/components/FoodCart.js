@@ -57,6 +57,8 @@ const FoodCart = ({ index, setitems, items }) => {
             counter += 1;
             count.current.textContent = counter;
             sessionStorage.setItem(`pcs ${index}`, counter);
+
+            //continue from here
             let test = Object.keys(sessionStorage);
             test.map(item => console.log(item))
 
