@@ -13,6 +13,7 @@ import ProteinBalls from '../assets/Dashboard/ProteinBalls.svg'
 import EggMeal from '../assets/Dashboard/EggMeal.svg'
 import Sandwich from '../assets/Dashboard/Sandwich.svg'
 import Stew from '../assets/Dashboard/Stew.svg'
+import FoodCart from "../components/FoodCart"
 
 
 const DashboardWrapper = styled.div`
@@ -229,50 +230,40 @@ const Dashboard = () => {
     const username = JSON.parse(sessionStorage.getItem('user')).name;
 
     const foodArray = [
-        { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.'},
-        { name: 'Pasta', image: <Pasta />, introText: <p>This is the best Pasta you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
-        { name: 'Protein Balls', image: <ProteinBalls />, introText: <p>This is the best Protein Ball you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
-        { name: 'Egg Meal', image: <EggMeal />, introText: <p>This is the best Egg Meal you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
-        { name: 'Sandwich', image: <Sandwich />, introText: <p>This is the best Sandwich you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
-        { name: 'Stew', image: <Stew />, introText: <p>This is the best Stew you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.' },
+        { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
+        { name: 'Pasta', image: <Pasta />, introText: <p>This is the best Pasta you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
+        { name: 'Protein Balls', image: <ProteinBalls />, introText: <p>This is the best Protein Ball you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
+        { name: 'Egg Meal', image: <EggMeal />, introText: <p>This is the best Egg Meal you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
+        { name: 'Sandwich', image: <Sandwich />, introText: <p>This is the best Sandwich you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
+        { name: 'Stew', image: <Stew />, introText: <p>This is the best Stew you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
     ];
 
     const foodBoxArray = [].concat(foodArray);
-    foodBoxArray.unshift({ name: <h3>Hamburger</h3>, image: <Hamburger />, text: <p>This is the best Hamburger you would ever taste</p>, price: 1000 })
+    foodBoxArray.unshift({ name: <h3>Hamburger</h3>, image: <Hamburger />, text: <p>This is the best Hamburger you would ever taste</p>, price: 1000, maxQuantity: 10 })
 
-    const cartButton = useRef(null);
     // const order = useRef(null);
     const cart = useRef(null);
-    const itemBox = useRef(null);
-    const dashboardElement = useRef(null)
+    const foodActionBox = useRef(null);
+    const dashboardElement = useRef(null);
+    
     // Ref: Line61 of FoodContainer.js and 343 of this page.
     let count = 0;
     // The code is the beginning of the process of passing a prop value from child to parent;
     // Refer to line 342-344 of this page and 63, 64 of FoodContainer.js for complete understanding.
     const [index, setindex] = useState(0)
-    
-    useEffect(() => {
-        const addToCartButton = cartButton.current;
-        const cartInfo = cart.current;
-        const FoodBox = itemBox.current;
-        const dashboard = dashboardElement.current
+    const [items, setitems] = useState(0)
 
-        let items = JSON.parse(sessionStorage.getItem('items'));
+    useEffect(() => {
+        
+        const cartInfo = cart.current;
+        const FoodBox = foodActionBox.current;
+        const dashboard = dashboardElement.current;
 
         // The block of code below would toggle the foodbox on and off at various instances
         // Ref: Line 62 of FoodContainer.js
         function toggleClass() {
             document.body.classList.contains('food-box') ?
                 FoodBox.classList.remove('display-none') : FoodBox.classList.add('display-none');
-
-        }
-
-        function addUpItems() {
-
-            items = items + 1;
-            sessionStorage.setItem('items', items);
-            cartInfo.innerHTML = sessionStorage.getItem('items');
-            document.body.className = ""
         }
 
         function toggleBgColor() {
@@ -289,8 +280,7 @@ const Dashboard = () => {
         setInterval(toggleClass, 10)
         setInterval(toggleBgColor, 10)
 
-        cartInfo.innerHTML = sessionStorage.getItem('items');
-        addToCartButton.addEventListener('click', addUpItems)
+        sessionStorage.getItem('items') ? cartInfo.innerHTML = sessionStorage.getItem('items') : cartInfo.innerHTML = items;
     })
 
 
@@ -342,31 +332,15 @@ const Dashboard = () => {
                                 count = count + 1;
                                 // So many prop values are passed in the code below, mostly from parent to child;
                                 // But the last prop takes in a value from a child (Refer to line 64 in FoodContainer.js);
-                                return <FoodContainer image={food.image.type} name={food.name} text={food.introText} price={`N${food.price}`} id={count} index={setindex} />
+                                return <FoodContainer image={food.image.type} name={food.name} text={food.introText} price={`N${food.price}`} id={count} setindex={setindex} />
                             })
                         }
                     </div>
 
                     <div className="item-wrapper">
 
-                        <div className="display-none item-container" ref={itemBox}>
-                            <img src={foodBoxArray[index].image.type} alt='hamburger meal' width = "230px" height = "230px" />
-                            <h3 className="container-food-name">{foodBoxArray[index].name}</h3>
-                            <p className="container-food-text">{foodBoxArray[index].mainText}</p>
-                            <div className="item-container-action-info">
-                                <h3 className="xx">{`NGN${foodBoxArray[index].price}`}</h3>
-                                <h3 className="xx">10-20 Mins</h3>
-                                <h3 className="xx">10 Pcs Avail</h3>
-                            </div>
-                            <div className="item-container-buttons">
-                                <div className="add-subtract-buttons">
-                                    <p className="subtract-button margin-right">-</p>
-                                    <p>1</p>
-                                    <p className="add-button margin-left">+</p>
-                                </div>
-                                <p className="cart-button" ref={cartButton}>Add to cart</p>
-                                {/* <p className="cart-button" >Add to cart</p> */}
-                            </div>
+                        <div className="display-none item-container" ref={foodActionBox}>
+                            <FoodCart index={index} setitems={setitems} items = {items}/>
                         </div>
 
                     </div>

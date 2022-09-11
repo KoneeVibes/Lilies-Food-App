@@ -45,7 +45,7 @@ p{
 }
 
 `
-const FoodContainer = ({ image, name, text, price, id, index}) => {
+const FoodContainer = ({ image, name, text, price, id, setindex}) => {
 
   // The line of code below and useEffect hook would help get the button element since document.getElementById does not work with react.
   // Then, the other lines of code are relevant actions that would take place upon the click of that button 
@@ -66,7 +66,7 @@ const FoodContainer = ({ image, name, text, price, id, index}) => {
       // This is how to pass a prop value from a child to parent
       // Ref: Lines 342-344 of Dashboard.js
       // We took advantage of the fact that parseInt() would only return a number here;
-      index(parseInt(document.body.getAttribute('class')));
+      setindex(parseInt(document.body.getAttribute('class')));
 
     }
 
