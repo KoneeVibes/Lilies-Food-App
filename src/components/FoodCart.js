@@ -11,11 +11,11 @@ const FoodCart = ({ index, setitems, items }) => {
 
     const foodArray = [
         { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
-        { name: 'Pasta', image: <Pasta />, introText: <p>This is the best Pasta you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
-        { name: 'Protein Balls', image: <ProteinBalls />, introText: <p>This is the best Protein Ball you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
-        { name: 'Egg Meal', image: <EggMeal />, introText: <p>This is the best Egg Meal you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
-        { name: 'Sandwich', image: <Sandwich />, introText: <p>This is the best Sandwich you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
-        { name: 'Stew', image: <Stew />, introText: <p>This is the best Stew you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
+        { name: 'Pasta', image: <Pasta />, introText: <p>This is the best Pasta you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 9 },
+        { name: 'Protein Balls', image: <ProteinBalls />, introText: <p>This is the best Protein Ball you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 8 },
+        { name: 'Egg Meal', image: <EggMeal />, introText: <p>This is the best Egg Meal you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 7 },
+        { name: 'Sandwich', image: <Sandwich />, introText: <p>This is the best Sandwich you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 6 },
+        { name: 'Stew', image: <Stew />, introText: <p>This is the best Stew you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 5 },
     ];
 
     const foodBoxArray = [].concat(foodArray);
@@ -32,7 +32,24 @@ const FoodCart = ({ index, setitems, items }) => {
     const addUpItems = () => {
 
         if (determinant) {
-            setitems(items = items + 1);
+
+            // get all keys from session storage
+
+            let pcs = Object.keys(sessionStorage)
+
+                // filter out keys that don't include 'pcs'
+                .filter(key => key.includes('pcs'));
+
+            // get the values of the keys that include 'pcs'
+
+            let values = pcs.map(i => parseInt(`${sessionStorage.getItem(i)}`))
+
+            // sum up the values and update the icon box
+
+            setitems(items = values.reduce((a, b) => {
+                return a + b;
+            }, 0));
+
             sessionStorage.setItem('items', items);
 
         }
@@ -49,29 +66,35 @@ const FoodCart = ({ index, setitems, items }) => {
 
         function addQuantity() {
 
-            if (index !== parseInt(document.body.getAttribute('class')) || parseInt(count.current.textContent) >= 10) return
+            // set two conditions to allow only the selected item quantity to be updated and only updated if it is greater than or equal to max-quantity
 
+            if (index !== parseInt(document.body.getAttribute('class')) || parseInt(count.current.textContent) >= foodBoxArray[index].maxQuantity) return
+
+            // set flag to check if the user has clicked on the button
             // eslint-disable-next-line
             determinant = true;
             let counter = parseInt(count.current.textContent);
             counter += 1;
             count.current.textContent = counter;
-            sessionStorage.setItem(`pcs ${index}`, counter);
 
-            //continue from here
-            let test = Object.keys(sessionStorage);
-            test.map(item => console.log(item))
+            // this would update all the item quantities if the first condition is not set
+            sessionStorage.setItem(`pcs ${index}`, counter);
 
         }
 
         function subtractQuantity() {
 
+            // set two conditions to allow only the selected item quantity to be updated and only updated if it is less than or equal to zero
+
             if (index !== parseInt(document.body.getAttribute('class')) || parseInt(count.current.textContent) <= 0) return
 
+            // set flag to check if the user has clicked on the button
             determinant = true;
             let counter = parseInt(count.current.textContent);
             counter -= 1;
             count.current.textContent = counter
+
+            // this would update all the item quantities if the first condition is not set
             sessionStorage.setItem(`pcs ${index}`, counter);
 
         }
