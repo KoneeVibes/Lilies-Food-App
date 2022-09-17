@@ -70,12 +70,14 @@ const FoodContainer = ({ image, name, text, price, id, setindex}) => {
 
     }
 
-    actionButton.addEventListener('click', addToggleClass)
+    actionButton.addEventListener('click', addToggleClass);
+    
   })
 
 
   return (
     <FoodContainerWrapper>
+
       <img src={image} alt='Food' />
       <h3>{name}</h3>
       <p style={{ lineHeight: '21px' }}>{text}</p>
@@ -83,6 +85,7 @@ const FoodContainer = ({ image, name, text, price, id, setindex}) => {
         <p className='price'>{price}</p>
         <button className='action-button' ref={button}>Add to cart</button>
       </div>
+
     </FoodContainerWrapper>
   )
 }

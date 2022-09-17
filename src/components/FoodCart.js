@@ -78,7 +78,7 @@ const FoodCart = ({ index, setitems, items }) => {
             count.current.textContent = counter;
 
             // this would update all the item quantities if the first condition is not set
-            sessionStorage.setItem(`pcs ${index}`, counter);
+            sessionStorage.setItem(`${index} pcs`, counter);
 
         }
 
@@ -95,7 +95,7 @@ const FoodCart = ({ index, setitems, items }) => {
             count.current.textContent = counter
 
             // this would update all the item quantities if the first condition is not set
-            sessionStorage.setItem(`pcs ${index}`, counter);
+            sessionStorage.setItem(`${index} pcs`, counter);
 
         }
 
@@ -118,7 +118,7 @@ const FoodCart = ({ index, setitems, items }) => {
             <div className="item-container-buttons">
                 <div className="add-subtract-buttons">
                     <p className="subtract-button margin-right" ref={subBut}>-</p>
-                    <p ref={count}>{sessionStorage.getItem(`pcs ${index}`) ? parseInt(sessionStorage.getItem(`pcs ${index}`)) : 0}</p>
+                    <p ref={count}>{sessionStorage.getItem(`${index} pcs`) ? parseInt(sessionStorage.getItem(`${index} pcs`)) : 0}</p>
                     <p className="add-button margin-left" ref={addBut}>+</p>
                 </div>
                 <p className="cart-button" ref={cartButton}>Add to cart</p>

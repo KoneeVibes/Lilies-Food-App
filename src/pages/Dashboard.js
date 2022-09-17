@@ -14,6 +14,7 @@ import EggMeal from '../assets/Dashboard/EggMeal.svg'
 import Sandwich from '../assets/Dashboard/Sandwich.svg'
 import Stew from '../assets/Dashboard/Stew.svg'
 import FoodCart from "../components/FoodCart"
+import CheckOutModal from "../components/CheckOutModal"
 
 
 const DashboardWrapper = styled.div`
@@ -343,6 +344,10 @@ const Dashboard = () => {
                             <FoodCart index={index} setitems={setitems} items = {items}/>
                         </div>
 
+                    </div>
+
+                    <div className="check-out-modal">
+                        <CheckOutModal text={'CLICK HERE'} index={index}/>
                     </div>
                 </div>
             </div>
