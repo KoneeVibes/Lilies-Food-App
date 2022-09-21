@@ -263,8 +263,7 @@ const Dashboard = () => {
     const [index, setindex] = useState(0)
     const [items, setitems] = useState(0)
 
-    useEffect(() => {
-        
+    useEffect(() => {   
         const cartInfo = cart.current;
         const FoodBox = foodActionBox.current;
         const dashboard = dashboardElement.current;
@@ -274,6 +273,7 @@ const Dashboard = () => {
         
         // The block of code below would toggle the foodbox on and off at various instances
         // Ref: Line 62 of FoodContainer.js
+        
         function toggleClass() {
             document.body.classList.contains('food-box') ?
                 FoodBox.classList.remove('display-none') : FoodBox.classList.add('display-none');
