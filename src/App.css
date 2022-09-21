@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Rubik&display=swap');
 
-html{
+html, body{
   margin: 0%;
   padding: 0%;
   height: 100%;
@@ -10,7 +10,6 @@ html{
   box-sizing: border-box;
   background: #00302E;
   font-family: 'Poppins', 'Rubik';
-  /* font-family: 'Rubik', sans-serif; */
   font-style: normal;
   font-size: 18px;
   font-weight: 400;

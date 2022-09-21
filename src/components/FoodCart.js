@@ -106,7 +106,6 @@ const FoodCart = ({ index, setitems, items }) => {
 
     return (
         <div>
-
             <img src={foodBoxArray[index].image.type} alt='hamburger meal' width="230px" height="230px" />
             <h3 className="container-food-name">{foodBoxArray[index].name}</h3>
             <p className="container-food-text">{foodBoxArray[index].mainText}</p>
@@ -123,7 +122,6 @@ const FoodCart = ({ index, setitems, items }) => {
                 </div>
                 <p className="cart-button" ref={cartButton}>Add to cart</p>
             </div>
-
         </div>
     )
 }
