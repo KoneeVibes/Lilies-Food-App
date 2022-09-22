@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
-import ActionButton from './ActionButton'
 import Hamburger from '../assets/Dashboard/Hamburger.svg'
 import Pasta from '../assets/Dashboard/Pasta.svg'
 import ProteinBalls from '../assets/Dashboard/ProteinBalls.svg'
 import EggMeal from '../assets/Dashboard/EggMeal.svg'
 import Sandwich from '../assets/Dashboard/Sandwich.svg'
 import Stew from '../assets/Dashboard/Stew.svg'
+import styled from 'styled-components'
 
 const ModalStyler = styled.div`
 
-    margin-left: 2.5em;
+margin-left: 2.5em;
 
     .title{
         font-family: Poppins;
@@ -109,7 +108,7 @@ const ModalStyler = styled.div`
 
 `
 
-const CheckOutModal = ({text, index}) => {
+const OrdersModal = () => {
 
     const foodArray = [
         { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
@@ -121,69 +120,31 @@ const CheckOutModal = ({text, index}) => {
     ];
     const foodBoxArray = [].concat(foodArray);
     foodBoxArray.unshift({ name: <h3>Hamburger</h3>, image: <Hamburger />, text: <p>This is the best Hamburger you would ever taste</p>, price: 1000, maxQuantity: 10 })
-    
+
     let pcs = Object.keys(sessionStorage).filter(key => key.includes('pcs'));
 
-    
-    function removeItem(e) {
-        let newArr = [];
-        sessionStorage.removeItem(`${parseInt(e.target.classList)} pcs`);
-        const pcsArr = Object.keys(sessionStorage).filter(key => key.includes('pcs'))
-        pcsArr.map(pcs => {
-            const Qty = parseInt(`${sessionStorage.getItem(pcs)}`)
-            newArr.push(Qty)
-            return newArr
-        });
-        const totalItems = newArr.reduce((a, b) => a + b, 0)
-        sessionStorage.setItem('items', totalItems);
-        window.location.reload();
-    }
-    
+
     useEffect(() => {
-
-        const removeButton = document.querySelectorAll('.remove');
-        const subtotals = document.querySelectorAll('.sub-total');
-        let subTotalsArray = [];
-        let total;
-        const totalValue = document.querySelector('.total');
-        const checkOutModal = document.querySelector('.check-out-modal');
-        const checkOutButton = document.querySelector('.check-out-button');
+      
+        const closeModal = document.querySelector('.close-orders-modal');
+        const OrdersModal = document.querySelector('.orders-modal');
         const dashboard = document.querySelector('.main');
-        const closeModalButton = document.querySelector('.close');
-        const MakePaymentModal = document.querySelector('.make-payment-modal');
-
-        subtotals.forEach(subtotal => {
-            const valueOfSubTotal =  parseInt(subtotal.textContent);
-            subTotalsArray.push(valueOfSubTotal);
-            subTotalsArray.reduce((a, b) => {
-            total = a + b;
-            totalValue.textContent = `N ${total}.00`;
-            return total
-           }, 0)
-        })
 
         function removeModal(){
-            checkOutModal.classList.add('display-none');
+            OrdersModal.classList.add('display-none');
             document.body.classList.remove('food-box');
             dashboard.classList.remove('cart-bg');
         }
-
-        function addMakePaymentModal(e){
-            e.preventDefault();
-            checkOutModal.classList.add('display-none');
-            MakePaymentModal.classList.remove('display-none');
-        }
-
-        checkOutButton.addEventListener('click', addMakePaymentModal);
-        closeModalButton.addEventListener('click', removeModal)
-        removeButton.forEach(button => button.addEventListener('click', removeItem));
+        
+        closeModal.addEventListener('click', removeModal)
     })
     
+
   return (
     <ModalStyler>
-        <button className='close'>X</button>
+        <button className='close close-orders-modal'>X</button>
 
-        <h3 className='title'>Your Cart</h3>
+        <h3 className='title'>Your Orders</h3>
 
         <table>
             <thead>
@@ -191,40 +152,31 @@ const CheckOutModal = ({text, index}) => {
                     <th className='item-column'>Item</th>
                     <th>Qty</th>
                     <th>Unit Price</th>
-                    <th>Sub-total(N)</th>         
+                    <th>Status</th>
                 </tr>
             </thead>
 
             <tbody>
-            {
-                pcs.map(i => {
-                    return <tr className={i}>
-                        <td className='image-cell'>
-                            <img src={foodBoxArray[parseInt(i)].image.type} alt='food'></img>
-                            <div className='name-remove-box'>
-                                <h3 className='name'>{foodBoxArray[parseInt(i)].name}</h3>
-                                <p className={`${i} remove`}>Remove</p>
-                            </div>
-                        </td>
-                        <td className='qty'>{parseInt(`${sessionStorage.getItem(i)}`)}</td>
-                        <td className='price'>{`N ${foodBoxArray[parseInt(i)].price}`}</td>
-                        <td className='sub-total'>{parseInt(foodBoxArray[parseInt(i)].price) * parseInt(`${sessionStorage.getItem(i)}`)}</td>
-                    </tr>          
-              })
-            }
+                {
+                    pcs.map(i => {
+                        return <tr className={i}>
+                            <td className='image-cell'>
+                                <img src={foodBoxArray[parseInt(i)].image.type} alt='food'></img>
+                                <div className='name-remove-box'>
+                                    <h3 className='name'>{foodBoxArray[parseInt(i)].name}</h3>
+                                    <p className={`${i} remove`}>Remove</p>
+                                </div>
+                            </td>
+                            <td className='qty'>{parseInt(`${sessionStorage.getItem(i)}`)}</td>
+                            <td className='price'>{`N ${foodBoxArray[parseInt(i)].price}`}</td>
+                            <td className='status'></td>
+                        </tr>
+                    })
+                }
             </tbody>
         </table>
-
-        <div className='total-box'>
-            <h3 className='total-title'>Total:</h3>
-            <h3 className='total'>0</h3>
-        </div>
-        
-        <div className='center-div'>
-              <ActionButton text={text} index={index} className={'check-out-button'}/>
-        </div>
     </ModalStyler>
   )
 }
 
-export default CheckOutModal
+export default OrdersModal

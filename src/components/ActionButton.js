@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 const ButtonStyler = styled.div`
 
-.check-out-button{
+.check-out-button, .make-payment-button{
   margin-top: 30px;
-  width: 488px;
+  width: 515px;
   height: 60px;
   color: #F3C294;
   background: #00302E;
@@ -17,14 +17,16 @@ const ButtonStyler = styled.div`
   font-size: 13px;
   line-height: 27px;
   cursor: pointer;
+  border-radius: 0;
 }
 
 `
 
-const ActionButton = ({text}) => {
+const ActionButton = ({text, className}) => {
+
   return (
     <ButtonStyler>
-        <input type="submit" value={text} className='check-out-button' ></input>
+        <input type="submit" value={text} className={className} ></input>
     </ButtonStyler>
   )
 }

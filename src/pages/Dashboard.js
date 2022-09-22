@@ -15,6 +15,8 @@ import Sandwich from '../assets/Dashboard/Sandwich.svg'
 import Stew from '../assets/Dashboard/Stew.svg'
 import FoodCart from "../components/FoodCart"
 import CheckOutModal from "../components/CheckOutModal"
+import MakePaymentModal from "../components/MakePaymentModal"
+import OrdersModal from "../components/OrdersModal"
 
 
 const DashboardWrapper = styled.div`
@@ -73,8 +75,8 @@ color: #000;
     }
 
     .cart-info{
-        background: #06E775;
-        border: 1px solid #06E775;
+        background: #F3C294;
+        border: 1px solid #F3C294;
         border-radius: 5px;
         padding: 2px;
         margin-left: 2.85em;
@@ -144,6 +146,8 @@ color: #000;
 
     .cart-bg{
         background: rgba(196, 196, 196, 0.42);
+        pointer-events:none;
+        position: fixed;
     }
 
     .item-container-action-info{
@@ -218,7 +222,7 @@ color: #000;
         font-weight: 600;
     }
 
-    .check-out-modal{
+    .check-out-modal, .orders-modal{
         position: absolute;
         top: 0;
         right: 0;
@@ -229,8 +233,16 @@ color: #000;
         overflow-x: hidden;
     }
 
-    .fixed-position{
+    .make-payment-modal{
         position: fixed;
+        top: 0;
+        right: 0;
+        width: 35%;
+        background: rgba(255, 255, 255, 1);
+        padding: 3.25em 2em 10.75em;
+        text-align: center;
+        height: 100vh;
+        overflow-y: hidden;
     }
 
 `
@@ -269,8 +281,12 @@ const Dashboard = () => {
         const dashboard = dashboardElement.current;
         const cartButton = document.querySelector('.cart');
         const checkOutModal = document.querySelector('.check-out-modal');
-        const dashboardAndSideBar = document.querySelector('.dashboard-sidebar');
-        
+        const dashboardButton = document.querySelector('.dashboard');
+        const MakePaymentModal = document.querySelector('.make-payment-modal');
+        const OrdersModal = document.querySelector('.orders-modal');
+        const ordersButton = document.querySelector('.orders');
+
+       
         // The block of code below would toggle the foodbox on and off at various instances
         // Ref: Line 62 of FoodContainer.js
         
@@ -288,8 +304,21 @@ const Dashboard = () => {
         }
 
         function addCheckOutModal(){
+            OrdersModal.classList.add('display-none');
+            MakePaymentModal.classList.add('display-none');
             checkOutModal.classList.remove('display-none');
-            dashboardAndSideBar.classList.add('fixed-position');
+            // the only way to add cart-bg class would be to add food-box to the document's body. So here we go!
+            document.body.classList.add('food-box');
+            dashboard.classList.add('cart-bg');
+        }
+
+        function refreshDashboard(){
+            window.location.reload();
+        }
+
+        function addOrdersModal(){
+            checkOutModal.classList.add('display-none');
+            OrdersModal.classList.remove('display-none');
             document.body.classList.add('food-box');
             dashboard.classList.add('cart-bg');
         }
@@ -300,68 +329,76 @@ const Dashboard = () => {
 
         sessionStorage.getItem('items') ? cartInfo.innerHTML = sessionStorage.getItem('items') : cartInfo.innerHTML = items;
         cartButton.addEventListener('click', addCheckOutModal)
+        dashboardButton.addEventListener('click', refreshDashboard)
+        ordersButton.addEventListener('click', addOrdersModal)
     })
 
     return (
         <DashboardWrapper>
-            <div className="dashboard">
-                <div className="dashboard-sidebar" >
-                    <div className="side-bar">
-                        <div className='header-logo-items'>
-                            <img src={Logo} alt='Food app logo' className="icon-margin" />
-                            <h2>Lilies</h2>
-                        </div>
-                        <div className="side-bar-item">
-                            <img src={HomeIcon} alt='Home Icon' className="icon-margin" />
-                            <p>Dashboard</p>
-                        </div>
-                        <div className="side-bar-item">
-                            <img src={ProfileIcon} alt='Profile Icon' className="icon-margin" />
-                            <p>Your Profile</p>
-                        </div>
-                        <div className="side-bar-item">
-                            <img src={OrdersIcon} alt='Orders Icon' className="icon-margin" />
-                            <p>Orders</p>
-                            {/* <p ref={orders} className="orders-info"></p> */}
-                        </div>
-                        <div className="side-bar-item cart">
-                            <img src={CartIcon} alt='Cart Icon' className="icon-margin" />
-                            <p>Your Cart</p>
-                            <p ref={cart} className="cart-info"></p>
-                        </div>
+            <div className="dashboard-sidebar" >
+                <div className="side-bar">
+                    <div className='header-logo-items'>
+                        <img src={Logo} alt='Food app logo' className="icon-margin" />
+                        <h2>Lilies</h2>
                     </div>
-                    <div className="main" ref={dashboardElement}>
-                        <div className="main-top">
-                            <div className="main-salutation">
-                                <h2>{`Good morning, ${username}!`}</h2>
-                                <p>What delicious meal are you craving today?</p>
-                            </div>
-                            <div className="main-photo-box">
-                                <img src={ProfilePhoto} alt='userphoto' />
-                            </div>
-                        </div>
-
-                        <div className="main-food-library">
-                            {
-                                foodArray.map(food => {
-                                    // Ref: Lines 61 of FoodContainer.js and 251 of this page
-                                    count = count + 1;
-                                    // So many prop values are passed in the code below, mostly from parent to child;
-                                    // But the last prop takes in a value from a child (Refer to line 64 in FoodContainer.js);
-                                    return <FoodContainer image={food.image.type} name={food.name} text={food.introText} price={`N${food.price}`} id={count} setindex={setindex} />
-                                })
-                            }
-                        </div>
+                    <div className="side-bar-item dashboard">
+                        <img src={HomeIcon} alt='Home Icon' className="icon-margin" />
+                        <p>Dashboard</p>
+                    </div>
+                    <div className="side-bar-item">
+                        <img src={ProfileIcon} alt='Profile Icon' className="icon-margin" />
+                        <p>Your Profile</p>
+                    </div>
+                    <div className="side-bar-item orders">
+                        <img src={OrdersIcon} alt='Orders Icon' className="icon-margin" />
+                        <p>Orders</p>
+                        {/* <p ref={orders} className="orders-info"></p> */}
+                    </div>
+                    <div className="side-bar-item cart">
+                        <img src={CartIcon} alt='Cart Icon' className="icon-margin" />
+                        <p>Your Cart</p>
+                        <p ref={cart} className="cart-info"></p>
                     </div>
                 </div>
-                
-                <div className="display-none item-container" ref={foodActionBox}>
-                    <FoodCart index={index} setitems={setitems} items={items} />
-                </div>
+                <div className="main" ref={dashboardElement}>
+                    <div className="main-top">
+                        <div className="main-salutation">
+                            <h2>{`Good morning, ${username}!`}</h2>
+                            <p>What delicious meal are you craving today?</p>
+                        </div>
+                        <div className="main-photo-box">
+                            <img src={ProfilePhoto} alt='userphoto' />
+                        </div>
+                    </div>
 
-                <div className="display-none check-out-modal">
-                    <CheckOutModal text={'Checkout'} index={index} setitems={setitems} items={items} />
+                    <div className="main-food-library">
+                        {
+                            foodArray.map(food => {
+                                // Ref: Lines 61 of FoodContainer.js and 251 of this page
+                                count = count + 1;
+                                // So many prop values are passed in the code below, mostly from parent to child;
+                                // But the last prop takes in a value from a child (Refer to line 64 in FoodContainer.js);
+                                return <FoodContainer image={food.image.type} name={food.name} text={food.introText} price={`N${food.price}`} id={count} setindex={setindex} />
+                            })
+                        }
+                    </div>
                 </div>
+            </div>
+            
+            <div className="display-none item-container" ref={foodActionBox}>
+                <FoodCart index={index} setitems={setitems} items={items} />
+            </div>
+
+            <div className="display-none check-out-modal">
+                <CheckOutModal text={'Checkout'} index={index} setitems={setitems} items={items} />
+            </div>
+
+            <div className="display-none make-payment-modal">
+                <MakePaymentModal />
+            </div>
+
+            <div className="display-none orders-modal">
+                <OrdersModal/>
             </div>
         </DashboardWrapper>
     )
