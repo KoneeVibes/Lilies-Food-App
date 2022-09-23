@@ -109,7 +109,7 @@ const ModalStyler = styled.div`
 
 `
 
-const CheckOutModal = ({text, index}) => {
+const CheckOutModal = () => {
 
     const foodArray = [
         { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
@@ -151,6 +151,9 @@ const CheckOutModal = ({text, index}) => {
         const dashboard = document.querySelector('.main');
         const closeModalButton = document.querySelector('.close');
         const MakePaymentModal = document.querySelector('.make-payment-modal');
+        const cartButton = document.querySelector('.cart');
+        const dashboardButton = document.querySelector('.dashboard');
+
 
         subtotals.forEach(subtotal => {
             const valueOfSubTotal =  parseInt(subtotal.textContent);
@@ -163,7 +166,9 @@ const CheckOutModal = ({text, index}) => {
         })
 
         function removeModal(){
+            dashboardButton.classList.add('sustain-depression');
             checkOutModal.classList.add('display-none');
+            cartButton.classList.remove('sustain-depression')
             document.body.classList.remove('food-box');
             dashboard.classList.remove('cart-bg');
         }
@@ -221,7 +226,7 @@ const CheckOutModal = ({text, index}) => {
         </div>
         
         <div className='center-div'>
-              <ActionButton text={text} index={index} className={'check-out-button'}/>
+              <ActionButton text={'Checkout'} className={'check-out-button'}/>
         </div>
     </ModalStyler>
   )

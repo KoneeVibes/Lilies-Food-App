@@ -66,12 +66,21 @@ color: #000;
         align-items: center;
         padding-left: 1em;
         margin-right: 4.25em;
+        opacity: 0.5;
     }
 
-    .side-bar-item:hover{
+    .sustain-depression{
         background: #EFEFEF;
         border-radius: 12px;
         cursor: pointer;
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    .side-bar-item:hover{
+        transform: scale(1.05);
+        cursor: pointer;
+        opacity: 0.75;
     }
 
     .cart-info{
@@ -80,6 +89,14 @@ color: #000;
         border-radius: 5px;
         padding: 2px;
         margin-left: 2.85em;
+    }
+
+    .orders-info{
+        background: #06E775;
+        border: 1px solid #06E775;
+        border-radius: 5px;
+        padding: 2px;
+        margin-left: 4.13em;
     }
 
     .main{
@@ -265,6 +282,7 @@ const Dashboard = () => {
 
     // const order = useRef(null);
     const cart = useRef(null);
+    const orders = useRef(null);
     const foodActionBox = useRef(null);
     const dashboardElement = useRef(null);
     
@@ -277,6 +295,7 @@ const Dashboard = () => {
 
     useEffect(() => {   
         const cartInfo = cart.current;
+        const ordersInfo = orders.current;
         const FoodBox = foodActionBox.current;
         const dashboard = dashboardElement.current;
         const cartButton = document.querySelector('.cart');
@@ -304,9 +323,12 @@ const Dashboard = () => {
         }
 
         function addCheckOutModal(){
+            ordersButton.classList.remove('sustain-depression');
+            dashboardButton.classList.remove('sustain-depression')
             OrdersModal.classList.add('display-none');
             MakePaymentModal.classList.add('display-none');
             checkOutModal.classList.remove('display-none');
+            cartButton.classList.add('sustain-depression');
             // the only way to add cart-bg class would be to add food-box to the document's body. So here we go!
             document.body.classList.add('food-box');
             dashboard.classList.add('cart-bg');
@@ -317,8 +339,12 @@ const Dashboard = () => {
         }
 
         function addOrdersModal(){
+            cartButton.classList.remove('sustain-depression');
+            dashboardButton.classList.remove('sustain-depression');
             checkOutModal.classList.add('display-none');
+            MakePaymentModal.classList.add('display-none');
             OrdersModal.classList.remove('display-none');
+            ordersButton.classList.add('sustain-depression')
             document.body.classList.add('food-box');
             dashboard.classList.add('cart-bg');
         }
@@ -328,6 +354,11 @@ const Dashboard = () => {
         setInterval(toggleBgColor, 10);
 
         sessionStorage.getItem('items') ? cartInfo.innerHTML = sessionStorage.getItem('items') : cartInfo.innerHTML = items;
+
+        let pcs = Object.keys(sessionStorage).filter(key => key.includes('pcs'));
+
+        pcs? ordersInfo.innerHTML = pcs.length : ordersInfo.innerHTML = 0;
+
         cartButton.addEventListener('click', addCheckOutModal)
         dashboardButton.addEventListener('click', refreshDashboard)
         ordersButton.addEventListener('click', addOrdersModal)
@@ -341,7 +372,7 @@ const Dashboard = () => {
                         <img src={Logo} alt='Food app logo' className="icon-margin" />
                         <h2>Lilies</h2>
                     </div>
-                    <div className="side-bar-item dashboard">
+                    <div className="side-bar-item dashboard sustain-depression">
                         <img src={HomeIcon} alt='Home Icon' className="icon-margin" />
                         <p>Dashboard</p>
                     </div>
@@ -352,7 +383,7 @@ const Dashboard = () => {
                     <div className="side-bar-item orders">
                         <img src={OrdersIcon} alt='Orders Icon' className="icon-margin" />
                         <p>Orders</p>
-                        {/* <p ref={orders} className="orders-info"></p> */}
+                        <p ref={orders} className="orders-info"></p>
                     </div>
                     <div className="side-bar-item cart">
                         <img src={CartIcon} alt='Cart Icon' className="icon-margin" />
@@ -390,11 +421,11 @@ const Dashboard = () => {
             </div>
 
             <div className="display-none check-out-modal">
-                <CheckOutModal text={'Checkout'} index={index} setitems={setitems} items={items} />
+                <CheckOutModal/>
             </div>
 
             <div className="display-none make-payment-modal">
-                <MakePaymentModal />
+                <MakePaymentModal/>
             </div>
 
             <div className="display-none orders-modal">

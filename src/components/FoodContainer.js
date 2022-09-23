@@ -67,7 +67,6 @@ const FoodContainer = ({ image, name, text, price, id, setindex}) => {
       // Ref: Lines 342-344 of Dashboard.js
       // We took advantage of the fact that parseInt() would only return a number here;
       setindex(parseInt(document.body.getAttribute('class')));
-
     }
 
     actionButton.addEventListener('click', addToggleClass);

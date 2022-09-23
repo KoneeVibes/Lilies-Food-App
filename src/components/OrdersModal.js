@@ -129,9 +129,13 @@ const OrdersModal = () => {
         const closeModal = document.querySelector('.close-orders-modal');
         const OrdersModal = document.querySelector('.orders-modal');
         const dashboard = document.querySelector('.main');
+        const ordersButton = document.querySelector('.orders');
+        const dashboardButton = document.querySelector('.dashboard');
 
         function removeModal(){
+            dashboardButton.classList.add('sustain-depression');
             OrdersModal.classList.add('display-none');
+            ordersButton.classList.remove('sustain-depression')
             document.body.classList.remove('food-box');
             dashboard.classList.remove('cart-bg');
         }
