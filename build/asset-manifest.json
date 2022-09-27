@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.daad82e4.css",
+    "main.js": "/static/js/main.4d06f641.js",
+    "static/media/HomeMainMid2.svg": "/static/media/HomeMainMid2.a73ce7e20d254d9b1f9dba9fb55dcb47.svg",
+    "static/media/ProteinBalls.svg": "/static/media/ProteinBalls.1e1f47aa9cdf92d143714441d06ca92a.svg",
+    "static/media/LeftBg.svg": "/static/media/LeftBg.694c4135bb12d21b31d80376f2f5d076.svg",
+    "static/media/HomeMainTop.svg": "/static/media/HomeMainTop.15b7bf132f4ad83c7799c0dc09a03574.svg",
+    "static/media/EggMeal.svg": "/static/media/EggMeal.02be7999b11f3655d6431de8828062e5.svg",
+    "static/media/HomeMainMid3.svg": "/static/media/HomeMainMid3.f52e40bfdda118fdbfd66be865022125.svg",
+    "static/media/Hamburger.svg": "/static/media/Hamburger.0b2a73e2357651c409debc714d16417e.svg",
+    "static/media/Stew.svg": "/static/media/Stew.0ee825d8181cbe11900c2b53061dc953.svg",
+    "static/media/HomeMainMid1.svg": "/static/media/HomeMainMid1.20d34093203aece6a7ecd035c8709ff3.svg",
+    "static/media/Pasta.svg": "/static/media/Pasta.056496f9adcde1ee3d8c7b3ba2604832.svg",
+    "static/media/Sandwich.svg": "/static/media/Sandwich.01bb17cd4f6b8904b1b88ee5920bc2bc.svg",
+    "static/media/IOSFooter.svg": "/static/media/IOSFooter.b9c9262348e2b8dcabc3833775b81a12.svg",
+    "static/media/IOSMain.svg": "/static/media/IOSMain.e7492cc119e1f9392722992da08a2aba.svg",
+    "static/media/PlaystoreFooter.svg": "/static/media/PlaystoreFooter.98e4f964660add75a5ab9471c2c56da7.svg",
+    "static/media/PlaystoreMain.svg": "/static/media/PlaystoreMain.bf3b3eefc8af16bc7903da63778ad908.svg",
+    "static/media/ProfilePhoto.svg": "/static/media/ProfilePhoto.9892ff58f603dfddd714bdbe9a685fff.svg",
+    "static/media/Instagram.svg": "/static/media/Instagram.bd37a60b2814145b5bbff20dca6e55cc.svg",
+    "static/media/HomeIcon.svg": "/static/media/HomeIcon.614e8b125ef7d4598fb94872887a2538.svg",
+    "static/media/Twitter.svg": "/static/media/Twitter.acbe9cd279e96256ebb284071522a294.svg",
+    "static/media/Logo.svg": "/static/media/Logo.cc623fa569d9e385caae31ad26db34b2.svg",
+    "static/media/YouTube.svg": "/static/media/YouTube.0b5a314cf65a8d1d2723ddf4d7b9bc14.svg",
+    "static/media/CartIcon.svg": "/static/media/CartIcon.811c996c9979db8ec371730cdb08b7d8.svg",
+    "static/media/OrdersIcon.svg": "/static/media/OrdersIcon.3a38c901eae30eee7ac501b91e473e7e.svg",
+    "static/media/ProfileIcon.svg": "/static/media/ProfileIcon.05e8a3c9eb1bd75ff7f700aaf7048495.svg",
+    "index.html": "/index.html",
+    "main.daad82e4.css.map": "/static/css/main.daad82e4.css.map",
+    "main.4d06f641.js.map": "/static/js/main.4d06f641.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.daad82e4.css",
+    "static/js/main.4d06f641.js"
+  ]
+}
