@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/Logo.svg'
@@ -17,22 +17,26 @@ import Instagram from '../assets/Instagram.svg'
 
 
 const WrapperMain = styled.div`
+--min-navbar-height: 120px;
 padding:  2.36%;
 
     header{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        min-height: var(--min-navbar-height)
     }
 
     .header-logo-items{
         display: flex;
         align-items: center;
+        gap: 2em;
     }
 
     .header-links{
         display: flex;
         align-items: center;
+        gap: 2em;
     }
 
     .header-links a{
@@ -46,10 +50,6 @@ padding:  2.36%;
 
     .active-link {
         color: rgba(251, 221, 187, 1);
-    }
-
-    .header-item-margin{
-        margin-right: 2em;
     }
 
     .signup-button{
@@ -88,12 +88,13 @@ padding:  2.36%;
     }
 
     .main-top-left img{
-        margin: 1em 1em 0em 0em;
+        padding: 1em 1em 0em 0em;
     }
 
     .main-top-right{
         flex: 0.3;
         margin: 0em 4em;
+        width: 100%;
     }
 
     .main-mid-center{
@@ -104,6 +105,10 @@ padding:  2.36%;
 
     .text-center-innerdiv{
         text-align: center;
+    }
+
+    .text-center-innerdiv img{
+        width: 100%;
     }
 
     .text-center-innerdiv h2{
@@ -120,6 +125,7 @@ padding:  2.36%;
     .main-next-mid{
         display: flex;
         justify-content: space-between;
+        gap: 7em;
         margin: 8em 0em 12em;
     }
 
@@ -127,6 +133,7 @@ padding:  2.36%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 7em;
     }
 
     .main-bottom-info h2{
@@ -138,27 +145,27 @@ padding:  2.36%;
     .main-bottom-interaction{
         display: flex;
         align-items: center;
+        gap: 1em;
     }
 
     .main-bottom-interaction input{
-        height: 51px;
-        width: 400px;
         border-radius: 5px;
-        margin-right: 1em;
-        padding-left: 1em;
-        padding-right: 1em;
+        padding: 1em 11em 1em 1em;
         font-family: Rubik;
         font-size: 18px;
         font-weight: 400;
+        border: none;
     }
 
     .main-bottom-interaction button{
-        height: 51px;
-        width: 182px;
         border-radius: 5px;
         background: #FBDDBB;
         border: none;
-        padding: 0;
+        padding: 1em 2.5em;
+        font-family: Rubik;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21px;
     }
 
     .main-bottom-interaction h3{
@@ -168,6 +175,248 @@ padding:  2.36%;
         font-weight: 500;
         font-family: Rubik;
     }
+
+    .hamburger{
+        display: none;
+        cursor: pointer;
+    }
+
+    .bar{
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        background-color: #FFF;
+    }
+
+    @media (min-width: 1023px) and (max-width: 1440px){
+        .main-top h1{
+            font-size: 48px;
+        }
+
+        .main-top-right{
+            width: 35%;
+        }
+
+        .main-bottom-interaction input{
+            padding: 1em;
+        }
+
+        .main-bottom-interaction button{
+            padding: 1em;
+        }
+
+        .main-bottom-info h2{
+            font-size: 30px;
+        }
+    }
+
+    @media (max-width: 1023px){
+        .hamburger{
+            display: block;     
+        }
+
+        .hamburger.active .bar:nth-child(2){
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1){
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3){
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .header-links{
+            position: fixed;
+            left: -100%;
+            flex-direction: column;
+            text-align: center;
+            transition: 0.3;
+            top: var(--min-navbar-height);
+            background: #00302E;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-links.active{
+            left: 0;
+        }
+
+        .main-top{
+            flex-direction: column;
+            margin-top: 2em;
+            gap: 2em;
+            align-items: flex-start;
+        }
+
+        .main-top-right{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+            width: 90%;
+        }
+
+        .main-bottom{
+            flex-direction: column;
+            gap: 2em;
+        }
+    }
+
+    @media (max-width: 768px){
+
+        padding: 2.36% 5%;
+
+        .header-logo-items{
+            gap: 0;
+        }
+
+        .header-logo-items img{
+            width: 50%;
+        }
+
+        .header-logo-items a{
+            width: 30%;
+        }
+
+        .main-top{
+            flex-direction: column;
+            margin-top: 2em;
+            gap: 2em;
+            align-items: flex-start;
+        }
+
+        .main-top h1{
+            font-size: 30px;
+        }
+
+        .main-top-right{
+            margin: 0;
+            height: auto;
+            width: 90%;
+        }
+
+        .main-top-left img{
+            width: 25%;
+        }
+
+        .text-center-innerdiv img{
+            width: 70%;
+        }
+
+        .main-next-mid{
+            flex-direction: column;
+        }
+
+        .main-mid-center{
+            margin-top: 2em;
+        }
+
+        .main-next-mid{
+            margin: 2em 0 3em;
+            gap: 3em;
+        }
+
+        .main-bottom-info h2{
+            font-size: 27px;
+            text-align: center;
+        }
+
+        .main-bottom-interaction input{
+            padding: 1em;
+        }
+
+        .main-bottom-interaction button{
+            font-size: 12px;
+            padding: 1em;
+        }
+    }
+
+    @media (max-width: 400px){
+        .main-bottom-interaction{
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 360px){
+        .main-top h1{
+            font-size: 20px;
+        }
+
+        .main-bottom-info h2{
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #text-center-innerdiv-pasta, #text-center-innerdiv-meatballs, #text-center-innerdiv-burger{
+            font-size: 16px;
+        }
+
+        .text-center-innerdiv h2{
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 270px){
+
+        .main-bottom-interaction{
+            display: none;
+        }
+    }
+
+    @media (max-width: 216px){
+        .bar{
+            margin: 1px auto;
+            width: 15px
+        }
+
+        .main-top h1{
+            font-size: 16px;
+        }
+
+        .text-center-innerdiv h2{
+            font-size: 14px;
+        }
+
+        .main-bottom-info h2 {
+            font-size: 14px;
+        }
+
+        #text-center-innerdiv-pasta, #text-center-innerdiv-meatballs, #text-center-innerdiv-burger{
+            font-size: 14px;
+        }
+
+        .signup-button{
+            width: 80%;
+        }
+
+        .signup-button h3{
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 150px){
+        .main-top h1{
+            font-size: 7px;
+        }
+
+        .text-center-innerdiv h2{
+            font-size: 6px;
+        }
+
+        .main-bottom-info h2 {
+            font-size: 6px;
+        }
+
+        #text-center-innerdiv-pasta, #text-center-innerdiv-meatballs, #text-center-innerdiv-burger{
+            font-size: 5px;
+        }
+    }
+
 `
 const WrapperFooter = styled.footer`
 
@@ -205,6 +454,45 @@ margin: 8em 0em 0em;
         margin-right: 1em;
     }
 
+    @media (max-width: 1440px){
+        margin-top: 5em;
+
+        .footer-top{
+            flex-direction: column;
+            padding: 5%;
+        }
+
+        .footer-bottom{
+            flex-direction: column-reverse;
+            padding: 4px;
+        }
+
+        .footer-bottom div{
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-top-install-app img{
+            width: 20%;
+        }
+    }
+
+    @media (max-width: 768px){
+        .footer-top-install-app img{
+            width: 40%;
+        }
+    }
+
+    @media (max-width: 150px){
+        .footer-bottom div{
+            flex-direction: column
+        }
+
+        .footer-bottom img{
+            width: 25%;
+        }
+    }
+
 `
 
 const Home = () => {
@@ -214,14 +502,42 @@ const Home = () => {
 
     const homeLink = useRef(null);
 
+    const [isActive, setisActive] = useState(false);
+
+    const toggleClass = () => {
+        setisActive(!isActive);
+        if (isActive) {
+            document.body.style.overflowY = 'visible';
+        } else {
+            document.body.style.overflowY = 'hidden';
+        }
+    }
+
     useEffect(() => {
     
     const home = homeLink.current;
+    const navMenu = document.querySelector('.header-links');
+    const hamburger = document.querySelector('.hamburger');
 
     if (window.location.pathname === '/'){  
         home.classList.add('active-link');
-        // console.log(home.textContent
     }
+
+    document.querySelectorAll('a').forEach(i => i.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.style.overflowY = 'visible'; 
+    }));
+
+    function resetToDefault() {
+        if (window.screen.availWidth >= 1023) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflowY = 'visible';
+        }
+    }
+
+    window.addEventListener('resize', resetToDefault);
 
     }, []);
   
@@ -230,13 +546,18 @@ const Home = () => {
         <WrapperMain>
             <header>
                 <div className='header-logo-items'>
-                    <img src={Logo} alt='Lilies Logo' className='header-item-margin'/>
+                    <Link to='/'><img src={Logo} alt='Lilies Logo'/></Link>
                     <h2>Lilies</h2>
                 </div>
-                <div className='header-links'>
-                    <Link to='/'><h4 className='header-item-margin' ref={homeLink}>Home</h4></Link>
-                    <Link to='login'><h4 className='header-item-margin' id='login-link'>Login</h4></Link>
-                    <button className='signup-button'><Link to='signup'><h3 id='signup-link'>Sign Up</h3></Link></button>
+                <div className={isActive ? "header-links active" : "header-links"}>
+                    <Link to='/'><h4 ref={homeLink}>Home</h4></Link>
+                    <Link to='login'><h4 id='login-link'>Login</h4></Link>
+                    <Link to='signup'><button className='signup-button'><h3 id='signup-link'>Sign Up</h3></button></Link>
+                </div>
+                <div className={isActive ? "hamburger active" : "hamburger"} onClick={toggleClass}>
+                    <span className='bar'></span>
+                    <span className='bar'></span>
+                    <span className='bar'></span>
                 </div>
             </header>
             <main>
@@ -310,8 +631,7 @@ const Home = () => {
                     <div className='footer-top-install-app'>
                         <h4>Install App</h4>
                         <img src={PlaystoreFooter} alt=''download button className='img-margin-bottom'/>  
-                        <img src={IOSFooter} alt=''download button className='img-margin-bottom'/>
-                        
+                        <img src={IOSFooter} alt=''download button className='img-margin-bottom'/>   
                     </div>
                 </div>
                 <div className='footer-bottom'>

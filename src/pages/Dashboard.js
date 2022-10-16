@@ -17,6 +17,7 @@ import FoodCart from "../components/FoodCart"
 import CheckOutModal from "../components/CheckOutModal"
 import MakePaymentModal from "../components/MakePaymentModal"
 import OrdersModal from "../components/OrdersModal"
+import { Link } from "react-router-dom"
 
 
 const DashboardWrapper = styled.div`
@@ -369,7 +370,7 @@ const Dashboard = () => {
             <div className="dashboard-sidebar" >
                 <div className="side-bar">
                     <div className='header-logo-items'>
-                        <img src={Logo} alt='Food app logo' className="icon-margin" />
+                        <Link to='/'><img src={Logo} alt='Food app logo' className="icon-margin" /></Link>
                         <h2>Lilies</h2>
                     </div>
                     <div className="side-bar-item dashboard sustain-depression">
