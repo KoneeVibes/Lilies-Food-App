@@ -295,7 +295,6 @@ padding:  2.36%;
         }
 
         .main-top-right{
-            margin: 0;
             height: auto;
             width: 90%;
         }
