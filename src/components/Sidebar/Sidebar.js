@@ -5,9 +5,7 @@ import { useContext } from "react"
 import { Context } from "../../context/Context"
 
 export const Sidebar = () => {
-    // const { setNavLink } = useContext(SideBarContext);
     const { setNavLink, setFoodContainer } = useContext(Context);
-
     const handleClick = (action) => {
         setFoodContainer(null);
         setNavLink(action);

@@ -7,7 +7,7 @@ import { DashboardWrapper } from "./Index"
 
 export const Dashboard = () => {
 
-    const { navLink } = useContext(Context)
+    const { navLink, foodContainer } = useContext(Context)
 
     return (
         <div>
@@ -18,7 +18,9 @@ export const Dashboard = () => {
                     )
                 })}
             </DashboardWrapper>
-            <FoodCart />
+            {
+                foodContainer && <FoodCart />
+            }
             {
                 navLink === "orders" && (
                     <div>This is the orders column</div>
