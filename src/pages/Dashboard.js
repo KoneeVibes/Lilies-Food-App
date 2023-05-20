@@ -269,6 +269,8 @@ const Dashboard = () => {
 
     const username = JSON.parse(sessionStorage.getItem('user')).name;
 
+    // refactor this taking this array to a config file
+
     const foodArray = [
         { name: 'Hamburger', image: <Hamburger />, introText: <p>This is the best Hamburger you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
         { name: 'Pasta', image: <Pasta />, introText: <p>This is the best Pasta you would ever taste</p>, price: 1000, mainText: 'Just have a single bite of this Black Forest pastry and it will all make a proper sense to you. The kick of cherry and rich chocolate of this super light, airy pastry will definitely make you feel "wow". The perfect combination of cherry cream and rich chocolate can provide the ultimate fulfillment to your dessert craving.', maxQuantity: 10 },
@@ -368,6 +370,7 @@ const Dashboard = () => {
     return (
         <DashboardWrapper>
             <div className="dashboard-sidebar" >
+                {/* refactor this to it's own component and put it in a layout */}
                 <div className="side-bar">
                     <div className='header-logo-items'>
                         <Link to='/'><img src={Logo} alt='Food app logo' className="icon-margin" /></Link>
@@ -417,6 +420,7 @@ const Dashboard = () => {
                 </div>
             </div>
             
+            {/* So all these components will be refactored internally to just come up when they are needed, not necessarily with the display-none style */}
             <div className="display-none item-container" ref={foodActionBox}>
                 <FoodCart index={index} setitems={setitems} items={items} />
             </div>

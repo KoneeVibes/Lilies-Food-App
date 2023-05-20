@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './pages/Dashboard';
 import RouteProtector from './components/RouteProtector';
+import { Layout } from './components/Layout';
 
 function App() {
     
@@ -18,7 +19,8 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<SignUp/>}/>
           <Route element={<RouteProtector/>}>
-            <Route path='/dashboard' element={<Dashboard/>}/>
+            {/* <Route path='/dashboard' element={<Dashboard/>}/> */}
+            <Route path='/dashboard' element={<Layout/>}/>
           </Route>
           
         </Routes>

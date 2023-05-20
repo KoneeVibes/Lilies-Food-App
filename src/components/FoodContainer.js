@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { Context } from '../context/Context'
 
 const FoodContainerWrapper = styled.div`
 
@@ -45,46 +46,23 @@ p{
 }
 
 `
-const FoodContainer = ({ image, name, text, price, id, setindex}) => {
+const FoodContainer = ({ image, name, text, price }) => {
 
-  // The line of code below and useEffect hook would help get the button element since document.getElementById does not work with react.
-  // Then, the other lines of code are relevant actions that would take place upon the click of that button 
-
-  const button = useRef(null);
-
-  useEffect(() => {
-
-    const actionButton = button.current;
-
-    function addToggleClass() {
-      // The below is the beginning of the process of giving each click event a unique ID
-      // Ref: Line 251,343
-      document.body.classList.add(`${id}`);
-      // Ref: Line 265 of Dashboard.js
-      document.body.classList.add('food-box');
-      // Notice we passed in index as a prop, it is then invoked below with a value for parameter
-      // This is how to pass a prop value from a child to parent
-      // Ref: Lines 342-344 of Dashboard.js
-      // We took advantage of the fact that parseInt() would only return a number here;
-      setindex(parseInt(document.body.getAttribute('class')));
-    }
-
-    actionButton.addEventListener('click', addToggleClass);
-    
-  })
-
+  const { setNavLink, setFoodContainer } = useContext(Context);
+  const handleClick = () => {
+    setNavLink(null)
+    setFoodContainer(name)
+  }
 
   return (
     <FoodContainerWrapper>
-
       <img src={image} alt='Food' />
       <h3>{name}</h3>
       <p style={{ lineHeight: '21px' }}>{text}</p>
       <div className='bottom-flex-box'>
         <p className='price'>{price}</p>
-        <button className='action-button' ref={button}>Add to cart</button>
+        <button className='action-button' onClick={handleClick}>Add to cart</button>
       </div>
-
     </FoodContainerWrapper>
   )
 }
