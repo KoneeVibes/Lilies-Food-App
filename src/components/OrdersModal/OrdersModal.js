@@ -38,7 +38,7 @@ const OrdersModal = () => {
     }
 
     return (
-        <ModalStyler backgroundColor={theme.colors.white} position={"fixed"} right={"0"} top={"0"} bottom={"0"} width={"50%"} padding={"8rem 4rem"} overflow={"scroll"}>
+        <ModalStyler backgroundColor={theme.colors.white} position={"fixed"} right={"0"} top={"0"} bottom={"0"} width={"50%"} padding={"8rem 4rem"} overflow={"scroll"} fullWidth>
             <Button
                 fontColor={theme.colors.red}
                 border={`solid ${theme.colors.green}`}

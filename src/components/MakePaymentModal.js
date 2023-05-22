@@ -36,6 +36,14 @@ const ModalStyler = styled.form`
         color: ${theme.colors.green};
         margin-bottom: 2rem;
     }
+
+    @media (max-width: 1024px){
+        width: fill-available;
+    }
+
+    @media (max-width: 500px){
+        padding: 2rem 1rem;
+    }
 `
 
 const MakePaymentModal = () => {
@@ -48,7 +56,7 @@ const MakePaymentModal = () => {
     }
 
     return (
-        <ModalStyler>
+        <ModalStyler fullWidth>
             <legend>Checkout</legend>
             <input placeholder='Card Number'></input>
             <input placeholder='Exp Date'></input>

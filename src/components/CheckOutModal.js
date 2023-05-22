@@ -6,13 +6,13 @@ import { Context } from '../context/Context'
 import { Column, Row } from './Flex'
 import { H4 } from './Typography'
 import { Avatar } from './Avatar/Index'
+import { Card } from "./Card"
 
-const ModalStyler = styled.div`
+const ModalStyler = styled(Card)`
     position: fixed;
     right: 0;
     top: 0;
     bottom: 0;
-    width: 50%;
     padding: 8rem 4rem;
     overflow: scroll;
     background: ${theme.colors.white};
@@ -35,7 +35,6 @@ const ModalStyler = styled.div`
     }
 
     .item-column{
-        width: 50%;
         text-align: left;
     }
 
@@ -56,6 +55,17 @@ const ModalStyler = styled.div`
         line-height: 33px;
         text-align: center;
         color: ${theme.colors.green};
+    }
+
+    @media (max-width: 768px){
+        .image-cell{
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 500px){
+        padding: 2rem 1rem;
     }
 `
 
@@ -106,7 +116,7 @@ const CheckOutModal = () => {
     }
 
     return (
-        <ModalStyler>
+        <ModalStyler width={"50%"} fullWidth>
             <Button
                 fontColor={theme.colors.red}
                 border={`solid ${theme.colors.green}`}

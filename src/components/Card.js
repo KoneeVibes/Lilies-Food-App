@@ -13,7 +13,7 @@ export const Card = styled.div`
     overflow-y: ${(props) => props.overflow || "visible"};
     z-index: ${(props) => props.zIndex || "auto"};
     
-    @media (max-width: 763px){
-        width: ${(props) => props.fullWidth && "auto"};
+    @media (max-width: 1024px){
+        width: ${(props) => props.fullWidth && "fill-available"};
     }
 `

@@ -26,7 +26,6 @@ export const ModalStyler = styled(Card)`
     }
 
     .item-column{
-        width: 50%;
         text-align: left;
     }
 
@@ -45,10 +44,14 @@ export const ModalStyler = styled(Card)`
         color: ${theme.colors.green};
     }
 
-    @media (max-width: 1024px){
+    @media (max-width: 768px){
         .image-cell{
             flex-direction: column;
             align-items: flex-start;
         }
+    }
+
+    @media (max-width: 450px){
+        padding: 2rem 1rem;
     }
 `
