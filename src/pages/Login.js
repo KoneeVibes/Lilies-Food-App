@@ -15,14 +15,21 @@ color: #00302EE8;
 
 .form-flex-box{
   display: flex;
-  flex: 1;
+  flex: 50%;
   flex-direction: column;
   align-items: center;
   margin-top: 3em;
+  // height: 100%;
+  // width: 100%;
 }
 
 .image-flex-box{
-  flex: 1;
+  flex: 50%;
+}
+
+.image-flex-box img{
+  // height: 100%;
+  width: 100%;
 }
 
 .bottom-flex{
@@ -66,6 +73,14 @@ color: #00302EE8;
 
 .margin-left-p{
   margin-left: 7.35em;
+}
+
+@media (max-width: 1440px){
+  // overflow: visible;
+
+  .image-flex-box{
+    // height: 50%;
+  }
 }
 `
 
