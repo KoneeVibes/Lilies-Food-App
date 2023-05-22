@@ -4,9 +4,13 @@ export const SideBarWrapper = styled.div`
     // position: fixed;
     top: 0;
     bottom: 0;
-    padding: 2.36%;
-    width: 20vw;
-    background: #FBFBFB;
+    padding: 4rem;
+    max-width: 20rem;
+    background-color: ${(props) => props.backgroundColor || "#FBFBFB"};
+    pointer-events: ${(props) => props.pointerEvent || "auto"};
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
     .dashboard-sidebar{
         display: flex;
@@ -28,9 +32,8 @@ export const SideBarWrapper = styled.div`
     .side-bar-item{
         display: flex;
         align-items: center;
-        padding-left: 1em;
-        margin-right: 4.25em;
         opacity: 0.5;
+        padding: 0 1rem;
     }
 
     .sustain-depression{
@@ -50,10 +53,22 @@ export const SideBarWrapper = styled.div`
     .header-logo-items{
         display: flex;
         align-items: center;
-        margin: 2em 0em 2em;
+        padding-bottom: 4rem;
     }
 
     .icon-margin{
         margin-right: 2em;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    @media (max-width: 1280px){
+       padding: 4rem 1rem;
+
+       h2, p{
+            display: none;
+       }
     }
 `

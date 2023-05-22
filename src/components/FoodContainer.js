@@ -41,16 +41,16 @@ p{
   font-size: 13px;
   font-weight: 500;
   border: none;
-  background: #fff;
   cursor: pointer;
+  background: none;
 }
 
 `
 const FoodContainer = ({ image, name, text, price }) => {
 
-  const { setNavLink, setFoodContainer } = useContext(Context);
+  const { setModal, setFoodContainer } = useContext(Context);
   const handleClick = () => {
-    setNavLink(null)
+    setModal(null)
     setFoodContainer(name)
   }
 
@@ -61,7 +61,7 @@ const FoodContainer = ({ image, name, text, price }) => {
       <p style={{ lineHeight: '21px' }}>{text}</p>
       <div className='bottom-flex-box'>
         <p className='price'>{price}</p>
-        <button className='action-button' onClick={handleClick}>Add to cart</button>
+        <button type='button' className='action-button' onClick={handleClick}>Add to cart</button>
       </div>
     </FoodContainerWrapper>
   )

@@ -1,69 +1,72 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
-import ActionButton from './ActionButton'
+import { Button } from './Buttons/Index'
+import { theme } from '../configs/app'
+import { Context } from '../context/Context'
 
-
-const ModalStyler = styled.div`
+const ModalStyler = styled.form`
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 38%;
+    padding: 8rem 4rem;
+    overflow: scroll;
+    background: ${theme.colors.white};
+    z-index: 100;
 
     input {
-        width: 456px;
-        height: 71px;
-        margin-bottom: 59px;
-        padding: 0 2em;
+        width: fill-available;
+        padding: 2em;
         background: rgba(255, 255, 255, 0.83);
         border: 1px solid rgba(251, 221, 187, 0.51);
         border-radius: 5px;
         font-family: Poppins;
-        font-size: 14px;
-        font-weight: 400;
+        font-size: 0.875rem;
+        font-weight: ${theme.font.weight.light};
         line-height: 33px;
+        margin-bottom: 2rem;
     }
 
-    h3{
+    legend{
         font-family: Poppins;
-        font-size: 17px;
-        font-weight: 600;
+        font-size: ${theme.font.sizes.ll};
+        font-weight: ${theme.font.weight.medium};
         text-align: left;
-        margin-left: 0.6em;
+        color: ${theme.colors.green};
+        margin-bottom: 2rem;
     }
-
-    .card-pin{
-        margin-bottom: 29px;
-    }
-
-    .card-number{
-        margin-top: 30px;
-    }
-
 `
 
 const MakePaymentModal = () => {
 
-    useEffect(() => {
- 
-        const makePaymentButton = document.querySelector('.make-payment-button');
-        const makePaymentModal = document.querySelector('.make-payment-modal')
-        
-        function handlePaymentAction(e){
-            e.preventDefault()
-            makePaymentModal.innerHTML = "To be continued"
-        }
+    const { setModal } = useContext(Context)
 
-        makePaymentButton.addEventListener('click', handlePaymentAction)
-    })
+    const handlePaymentAction = (e) => {
+        e.preventDefault();
+        setModal(null);
+    }
 
-  return (
-    <ModalStyler className='test'>
-        <form>
-              <h3>Checkout</h3>
-              <input placeholder='Card Number' className='card-number' required></input><br></br>
-              <input placeholder='Exp Date' required></input><br></br>
-              <input placeholder='CVV/CVV2' required></input><br></br>
-              <input placeholder='Card Pin' className='card-pin' required></input><br></br>
-              <ActionButton text={'Make Payment'} className={'make-payment-button'}/>
-        </form>
-    </ModalStyler>
-  )
+    return (
+        <ModalStyler>
+            <legend>Checkout</legend>
+            <input placeholder='Card Number'></input>
+            <input placeholder='Exp Date'></input>
+            <input placeholder='CVV/CVV2' ></input>
+            <input placeholder='Card Pin'></input>
+            <Button
+                onClick={(e) => handlePaymentAction(e)}
+                width={"100%"}
+                textAlign={"center"}
+                fontColor={theme.colors.peach}
+                fontWeight={theme.font.weight.medium}
+                backgroundColor={theme.colors.green}
+                type='submit'
+            >
+                Make Payment
+            </Button>
+        </ModalStyler >
+    )
 }
 
 export default MakePaymentModal

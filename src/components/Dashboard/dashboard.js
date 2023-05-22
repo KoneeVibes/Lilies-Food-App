@@ -1,37 +1,82 @@
-import { useContext } from "react"
-import { foodInfo } from "../../configs/app"
+import { useContext, useEffect, useState } from "react"
+import { foodInfo, theme, icons } from "../../configs/app"
 import { Context } from "../../context/Context"
-import FoodCart from "../FoodCart"
+import FoodCart from "../Foodcart/FoodCart"
 import FoodContainer from "../FoodContainer"
 import { DashboardWrapper } from "./Index"
+import OrdersModal from "../OrdersModal/OrdersModal"
+import CheckOutModal from "../CheckOutModal"
+import MakePaymentModal from "../MakePaymentModal"
+import { Column, Row } from "../Flex"
+import { Avatar } from "../Avatar/Index"
+import { H4, Text } from "../Typography"
 
 export const Dashboard = () => {
 
-    const { navLink, foodContainer } = useContext(Context)
+    const { modal, foodContainer } = useContext(Context)
+    const [username, setUsername] = useState()
+
+    useEffect(() => {
+        setUsername(JSON.parse(sessionStorage.getItem('user')).name);
+    }, []);
 
     return (
         <div>
-            <DashboardWrapper>
-                {foodInfo.map((food, i) => {
-                    return (
-                        <FoodContainer key={i} image={food.image} name={food.name} text={food.introText} price={`N${food.price}`} />
-                    )
-                })}
+            <DashboardWrapper
+                padding={"4em 2em 0"}
+                backgroundColor={(foodContainer || modal) ? theme.colors.disabled : theme.colors.white}
+                pointerEvents={(foodContainer || modal) && "none"}
+                gap={4}
+            >
+                <Row justifyContent={"space-between"} flexWrap={"wrap-reverse"}>
+                    <Column>
+                        <H4 fontSize={"1.4375rem"}>{`Good morning, ${username}!`}</H4>
+                        <Text
+                            fontSize={"0.875rem"}
+                            fontWeight={theme.font.weight.light}
+                            fontColor={theme.colors.offBlack}
+                        >
+                            What delicious meal are you craving today?
+                        </Text>
+                    </Column>
+                    <Avatar
+                        src={icons.profilePhoto}
+                        alt='userphoto'
+                        marginLeft={"0"}
+                        marginRight={"0"}
+                    />
+                </Row>
+                <Row gap={"0"}>
+                    {foodInfo.map((food, i) => {
+                        return (
+                            <FoodContainer
+                                key={i} image={food.image}
+                                name={food.name} text={food.introText} price={`N${food.price}`}
+                            />
+                        )
+                    })}
+                </Row>
             </DashboardWrapper>
             {
                 foodContainer && <FoodCart />
             }
             {
-                navLink === "orders" && (
-                    <div>This is the orders column</div>
+                modal === "orders" && (
+                    <OrdersModal />
                 )
             }
 
             {
-                navLink === "cart" && (
-                    <div>This is the cart column</div>
+                modal === "cart" && (
+                    <CheckOutModal />
                 )
             }
-        </div>
+
+            {
+                modal === "payment" && (
+                    <MakePaymentModal />
+                )
+            }
+        </div >
     )
 }

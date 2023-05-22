@@ -1,4 +1,5 @@
 import Logo from "../assets/Logo.svg"
+import ProfilePhoto from "../assets/Dashboard/ProfilePhoto.svg"
 import HomeIcon from "../assets/Dashboard/HomeIcon.svg"
 import ProfileIcon from "../assets/Dashboard/ProfileIcon.svg"
 import OrdersIcon from "../assets/Dashboard/OrdersIcon.svg"
@@ -76,8 +77,41 @@ export const foodInfo = [
 
 export const icons = {
     logo: Logo,
+    profilePhoto: ProfilePhoto,
     homeIcon: HomeIcon,
     profileIcon: ProfileIcon,
     ordersIcon: OrdersIcon,
-    cartIcon: CartIcon
+    cartIcon: CartIcon,
+}
+
+export const theme = {
+    colors: {
+        base: "#00302E",
+        disabled: "#C4C4C4",
+        black: "#000000",
+        offBlack: "#000000B0",
+        white: "#FFFFFF",
+        green: "#00302E",
+        peach: "#F3C294",
+        red: "#C92C33",
+    },
+
+    font: {
+        sizes: {
+            base: "0.8125rem",
+            ss: "0.6875rem",
+            md: "0.75rem",
+            nm: "0.8125rem",
+            ll: "1.0625rem",
+            xl: "1.6875rem",
+            xxl: "1.9375rem"
+        },
+
+        weight: {
+            light: 400,
+            normal: 500,
+            medium: 600,
+            bold: 700
+        }
+    }
 }
