@@ -6,7 +6,7 @@ import { useContext } from "react"
 export const Layout = () => {
     const { foodContainer, modal } = useContext(Context)
     return (
-        <div style={{ display: "flex", position: (foodContainer || modal) && "fixed" }}>
+        <div style={{ display: "flex", position: ((foodContainer || modal) && "fixed"), height: "inherit" }} >
             <Sidebar />
             <Dashboard />
         </div>

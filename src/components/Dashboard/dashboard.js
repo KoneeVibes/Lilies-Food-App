@@ -21,12 +21,13 @@ export const Dashboard = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{ height: "inherit" }} >
             <DashboardWrapper
-                padding={"4em 2em 0"}
+                padding={"4rem 2"}
                 backgroundColor={(foodContainer || modal) ? theme.colors.disabled : theme.colors.white}
                 pointerEvents={(foodContainer || modal) && "none"}
                 gap={4}
+                flexWrap={"nowrap"}
             >
                 <Row justifyContent={"space-between"} flexWrap={"wrap-reverse"}>
                     <Column>
