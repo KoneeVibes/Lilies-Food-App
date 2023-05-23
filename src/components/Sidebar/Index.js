@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const SideBarWrapper = styled.div`
-    // position: fixed;
-    top: 0;
-    bottom: 0;
     padding: 4rem;
     max-width: 20rem;
     background-color: ${(props) => props.backgroundColor || "#FBFBFB"};
@@ -11,6 +8,7 @@ export const SideBarWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    height: inherit;
 
     .dashboard-sidebar{
         display: flex;

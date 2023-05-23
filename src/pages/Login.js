@@ -5,22 +5,19 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 const Styledwrapper = styled.div`
-background: #FFFFFF;
-height: 100vh;
-overflow: hidden;
 display: flex;
-align-items: center;
+align-items: stretch;
+gap: 2rem;
 color: #00302EE8;
-
+background: #FFFFFF;
+height: inherit;
 
 .form-flex-box{
   display: flex;
-  flex: 50%;
   flex-direction: column;
-  align-items: center;
-  margin-top: 3em;
-  // height: 100%;
-  // width: 100%;
+  justify-content: center;
+  flex: 50%;
+  padding: 4rem;
 }
 
 .image-flex-box{
@@ -28,20 +25,22 @@ color: #00302EE8;
 }
 
 .image-flex-box img{
-  // height: 100%;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .bottom-flex{
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: fill-available;
 }
 
 .form-flex-box input{
-  padding-left: 1em;
-  width: 40.5em;
-  height: 4.4375em;
-  margin: 1.5em;
+  padding: 2rem;
+  width: fill-available;
+  margin-bottom: 1.5em;
   border: 1px solid #FBDDBB82;
   border-radius: 5px;
   font-family: 'Poppins';
@@ -50,38 +49,49 @@ color: #00302EE8;
   font-size: 14px;
 }
 
-.form-flex-box h2{
+legend{
   font-style: normal;
   font-weight: 600;
   font-size: 27px;
+  margin-bottom: 1.5em;
+  text-align: center;
 }
 
 #login-button{
-  padding-left: 6px;
-  width: 41.88em;
+  width: fill-available;
   color: #FBDDBB;
   background: #00302E;
   text-align: center;
   border: none;
 }
 
-.margin-right-p{
-  margin-right: 7.35em;
+a, p{
   text-decoration: none;
   color: #00302E;
 }
 
-.margin-left-p{
-  margin-left: 7.35em;
+@media (max-width: 1024px){
+  flex-direction: column;
 }
 
-@media (max-width: 1440px){
-  // overflow: visible;
+@media (max-width: 480px){
+  .form-flex-box{
+    padding: 2rem;
+  }
 
-  .image-flex-box{
-    // height: 50%;
+  .bottom-flex{
+    flex-direction: column;
+  }
+
+  legend{
+    overflow-wrap: anywhere;
+  }
+
+  .form-flex-box input{
+      text-overflow: ellipsis;
   }
 }
+
 `
 
 const Login = () => {
@@ -117,20 +127,20 @@ const Login = () => {
 
   return (
     <Styledwrapper>
-      <ToastContainer/>
       <div className='image-flex-box'>
-        <img src={LeftBg} alt='Food' height='100%'/>
+        <img src={LeftBg} alt='Food'/>
       </div>
       <div className='form-flex-box'>
-        <h2>Welcome Back!</h2>
+        <ToastContainer />
         <form onSubmit={handleFormSubmission}>
+          <legend>Welcome Back!</legend>
           <input type='email' name='email' placeholder='Your Email address' onChange={handleFormInput}/><br/>
           <input type='password' name='password' placeholder='Your Password' onChange={handleFormInput}/><br/>
           <input type="submit" value="LOGIN" id='login-button' ></input>
         </form>
         <div className='bottom-flex'>
-          <div><Link to='/signup' className='margin-right-p'>Create an account</Link></div>
-          <div><p className='margin-left-p'>Forgot Password</p></div> 
+          <Link to='/signup'>Create an account</Link>
+          <p>Forgot Password</p>
         </div>
       </div>
 
