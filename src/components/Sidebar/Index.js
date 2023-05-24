@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { theme } from "../../configs/app";
 
 export const SideBarWrapper = styled.div`
     padding: 4rem;
@@ -8,12 +9,6 @@ export const SideBarWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    height: inherit;
-
-    .dashboard-sidebar{
-        display: flex;
-        overflow-x : hidden;
-    }
     
     p{  
         font-size: 16px;
@@ -27,11 +22,21 @@ export const SideBarWrapper = styled.div`
         color: #00302E;
     }
 
-    .side-bar-item{
+    .header-logo-items{
         display: flex;
         align-items: center;
+        gap: 2rem;
+        padding-bottom: 4rem;
+    }
+
+    .side-bar-item{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
         opacity: 0.5;
         padding: 0 1rem;
+        width: max-content;
     }
 
     .sustain-depression{
@@ -48,14 +53,18 @@ export const SideBarWrapper = styled.div`
         opacity: 0.75;
     }
 
-    .header-logo-items{
-        display: flex;
-        align-items: center;
-        padding-bottom: 4rem;
+    .orders-info{
+        border: 1px solid #06E775;
+        background-color: #06E775;
+        border-radius: 5px;
+        padding: 0.5rem;
     }
 
-    .icon-margin{
-        margin-right: 2em;
+    .cart-info{
+        border: 1px solid #F3C294;
+        background-color: ${theme.colors.peach};
+        border-radius: 5px;
+        padding: 0.5rem;
     }
 
     .hide{
@@ -67,6 +76,10 @@ export const SideBarWrapper = styled.div`
 
        h2, p{
             display: none;
+       }
+
+       .side-bar-item{
+            padding: 1rem;
        }
     }
 `

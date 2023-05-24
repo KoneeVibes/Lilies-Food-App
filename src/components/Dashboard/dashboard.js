@@ -21,7 +21,7 @@ export const Dashboard = () => {
     }, []);
 
     return (
-        <div style={{ height: "inherit" }} >
+        <div >
             <DashboardWrapper
                 padding={"4rem 2"}
                 backgroundColor={(foodContainer || modal) ? theme.colors.disabled : theme.colors.white}
