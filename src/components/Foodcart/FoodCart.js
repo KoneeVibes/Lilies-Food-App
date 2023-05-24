@@ -8,7 +8,7 @@ import { Button } from '../Buttons/Index'
 
 const FoodCart = () => {
 
-    const { foodContainer, setFoodContainer } = useContext(Context)
+    const { foodContainer, setFoodContainer, setItems } = useContext(Context)
     const selectedFood = foodInfo.find((food) => food.name === foodContainer)
     const [quantity, setQuantity] = useState()
 
@@ -30,6 +30,13 @@ const FoodCart = () => {
                 if (qty === 0) return
                 setQuantity(qty - 1);
                 return sessionStorage.setItem(`${selectedFood.name}`, qty - 1);
+            case "addToCart":
+                setFoodContainer(null)
+                return setItems(Object.keys(sessionStorage).filter((key) => {
+                    return (
+                        key !== "user"
+                    )
+                }))
             default:
                 return qty
         }
@@ -99,7 +106,7 @@ const FoodCart = () => {
                                 fontWeight={theme.font.weight.medium}
                                 fontColor={theme.colors.white}
                                 backgroundColor={theme.colors.green}
-                                onClick={() => setFoodContainer(null)}
+                                onClick={() => updateQuantity("addToCart")}
                                 type="button"
                             >
                                 Add to cart

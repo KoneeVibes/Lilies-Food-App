@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { getValue } from '../CheckOutModal'
 import { foodInfo, theme } from '../../configs/app'
 import { H4 } from '../Typography'
@@ -10,17 +10,7 @@ import { Context } from '../../context/Context'
 
 const OrdersModal = () => {
 
-    const [items, setItems] = useState([]);
-    const { setModal } = useContext(Context);
-
-    useEffect(() => {
-        setItems(Object.keys(sessionStorage).filter((key) => {
-            return (
-                key !== "user"
-            )
-        }))
-    }, []);
-
+    const { setModal, items, setItems } = useContext(Context);
     const handleClick = (action, key) => {
         switch (action) {
             case "closeModal":

@@ -80,22 +80,26 @@ export const getValue = (data, key, searchValue, value) => {
 
 const CheckOutModal = () => {
 
-    const [items, setItems] = useState([]);
-    const { setModal } = useContext(Context);
-
-    useEffect(() => {
-        setItems(Object.keys(sessionStorage).filter((key) => {
-            return (
-                key !== "user"
-            )
-        }))
-    }, []);
+    const [subTotals, setSubTotals] = useState([]);
+    const { setModal, items, setItems } = useContext(Context);
 
     const computeSubTotal = (qty, price) => {
         return (
             qty * price
         )
     }
+
+    useEffect(() => {
+        setSubTotals(items.map((item) => {
+            return (
+                computeSubTotal(sessionStorage.getItem(item), getValue(foodInfo, "name", item, "price"))
+            )
+        }));
+    }, [items]);
+
+    const total = subTotals.reduce((accumulator, currentVal) => {
+        return accumulator + parseFloat(currentVal)
+    }, 0)
 
     const handleClick = (action, key) => {
         switch (action) {
@@ -191,7 +195,7 @@ const CheckOutModal = () => {
                     fontWeight={theme.font.weight.bold}
                     fontColor={theme.colors.green}
                 >
-                    0
+                    {total}
                 </H4>
             </Row>
 
