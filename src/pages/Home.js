@@ -19,6 +19,7 @@ import Instagram from '../assets/Instagram.svg'
 const WrapperMain = styled.div`
 --min-navbar-height: 120px;
 padding:  2.36%;
+background: #00302e;
 
     header{
         display: flex;
@@ -134,6 +135,7 @@ padding:  2.36%;
         justify-content: space-between;
         align-items: center;
         gap: 7em;
+        padding-bottom: 8rem;
     }
 
     .main-bottom-info h2{
@@ -420,7 +422,6 @@ padding:  2.36%;
 const WrapperFooter = styled.footer`
 
 background: #0B0D17;
-margin: 8em 0em 0em;
 
     footer{
         background: #0B0D17;
@@ -454,7 +455,6 @@ margin: 8em 0em 0em;
     }
 
     @media (max-width: 1440px){
-        margin-top: 5em;
 
         .footer-top{
             flex-direction: column;
