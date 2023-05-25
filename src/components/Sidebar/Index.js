@@ -9,6 +9,8 @@ export const SideBarWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    -webkit-transition: all 5s ease-in-out;
+    transition: all 5s ease-in-out;
     
     p{  
         font-size: 16px;
@@ -27,16 +29,16 @@ export const SideBarWrapper = styled.div`
         align-items: center;
         gap: 2rem;
         padding-bottom: 4rem;
+        justify-content: space-between;
     }
 
     .side-bar-item{
         display: flex;
         gap: 1rem;
         align-items: center;
-        justify-content: space-between;
         opacity: 0.5;
         padding: 0 1rem;
-        width: max-content;
+        width: fill-available;
     }
 
     .sustain-depression{
@@ -72,14 +74,13 @@ export const SideBarWrapper = styled.div`
     }
 
     @media (max-width: 1280px){
-       padding: 4rem 1rem;
+        display: ${(props) => props.display};
+        position: fixed;
+        height: fill-available;
+    }
 
-       h2, p{
-            display: none;
-       }
-
-       .side-bar-item{
-            padding: 1rem;
-       }
+    @media (max-width: 768px){
+        max-width: fill-available;
+        width: fill-available;
     }
 `

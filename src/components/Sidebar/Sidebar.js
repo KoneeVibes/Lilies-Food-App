@@ -5,13 +5,15 @@ import { useContext } from "react"
 import { Context } from "../../context/Context"
 import { useState } from "react"
 import { useEffect } from "react"
+import { Hamburger } from "../Dashboard/Index"
 
 export const Sidebar = () => {
     const [qty, setQty] = useState();
-    const { modal, setModal, foodContainer, setFoodContainer, items } = useContext(Context);
+    const { modal, setModal, foodContainer, setFoodContainer, items, showSideBar, setShowSideBar } = useContext(Context);
     const handleClick = (action) => {
         setFoodContainer(null);
         setModal(action);
+        setShowSideBar(false);
     }
 
     useEffect(() => {
@@ -25,10 +27,15 @@ export const Sidebar = () => {
     }, [items])
 
     return (
-        <SideBarWrapper pointerEvent={(foodContainer || modal) && "none"} backgroundColor={(foodContainer || modal) && theme.colors.disabled}>
+        <SideBarWrapper display={showSideBar ? "flex" : "none"} pointerEvent={(foodContainer || modal) && "none"} backgroundColor={(foodContainer || modal) && theme.colors.disabled}>
             <div className='header-logo-items'>
                 <Link to='/'><img src={icons.logo} alt='Food app logo' className="icon-margin" /></Link>
                 <h2>Lilies</h2>
+                <Hamburger onClick={() => handleClick()} backgroundColor={"#FBFBFB"} display={"none"} sideDisplay >
+                    <span className='bar' style={{ transform: showSideBar && "translateY(8px) rotate(45deg)", backgroundColor: theme.colors.green }} ></span>
+                    <span className='bar' style={{ opacity: showSideBar && "0", backgroundColor: theme.colors.green }}></span>
+                    <span className='bar' style={{ transform: showSideBar && "translateY(-8px) rotate(-45deg)", backgroundColor: theme.colors.green }}></span>
+                </Hamburger>
             </div>
             <div className={`side-bar-item ${(!foodContainer && !modal) && "sustain-depression"}`}>
                 <img src={icons.homeIcon} alt='Home Icon' className="icon-margin" />
