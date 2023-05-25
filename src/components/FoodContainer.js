@@ -48,10 +48,11 @@ p{
 `
 const FoodContainer = ({ image, name, text, price }) => {
 
-  const { setModal, setFoodContainer } = useContext(Context);
+  const { setModal, setFoodContainer, setShowSideBar } = useContext(Context);
   const handleClick = () => {
-    setModal(null)
-    setFoodContainer(name)
+    setShowSideBar(false);
+    setModal(null);
+    setFoodContainer(name);
   }
 
   return (

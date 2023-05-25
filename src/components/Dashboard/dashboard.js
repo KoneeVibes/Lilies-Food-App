@@ -3,7 +3,7 @@ import { foodInfo, theme, icons } from "../../configs/app"
 import { Context } from "../../context/Context"
 import FoodCart from "../Foodcart/FoodCart"
 import FoodContainer from "../FoodContainer"
-import { DashboardWrapper } from "./Index"
+import { DashboardWrapper, Hamburger, Header } from "./Index"
 import OrdersModal from "../OrdersModal/OrdersModal"
 import CheckOutModal from "../CheckOutModal"
 import MakePaymentModal from "../MakePaymentModal"
@@ -11,14 +11,19 @@ import { Column, Row } from "../Flex"
 import { Avatar } from "../Avatar/Index"
 import { H4, Text } from "../Typography"
 
+
 export const Dashboard = () => {
 
-    const { modal, foodContainer } = useContext(Context)
+    const { modal, foodContainer, showSideBar, setShowSideBar } = useContext(Context)
     const [username, setUsername] = useState()
 
     useEffect(() => {
         setUsername(JSON.parse(sessionStorage.getItem('user')).name);
     }, []);
+
+    const handleClick = () => {
+        setShowSideBar(!showSideBar);
+    }
 
     return (
         <div >
@@ -29,6 +34,13 @@ export const Dashboard = () => {
                 gap={4}
                 flexWrap={"nowrap"}
             >
+                <Header>
+                    <Hamburger onClick={() => handleClick()} >
+                        <span className='bar' style={{ transform: showSideBar && "translateY(8px) rotate(45deg)" }} ></span>
+                        <span className='bar' style={{ opacity: showSideBar && "0" }}></span>
+                        <span className='bar' style={{ transform: showSideBar && "translateY(-8px) rotate(-45deg)" }}></span>
+                    </Hamburger>
+                </Header>
                 <Row justifyContent={"space-between"} flexWrap={"wrap-reverse"}>
                     <Column>
                         <H4 fontSize={"1.4375rem"}>{`Good morning, ${username}!`}</H4>
