@@ -9,8 +9,6 @@ export const SideBarWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    -webkit-transition: all 5s ease-in-out;
-    transition: all 5s ease-in-out;
     
     p{  
         font-size: 16px;

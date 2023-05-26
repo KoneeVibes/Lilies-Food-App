@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import LeftBg from '../assets/Register/LeftBg.svg'
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 
 const Styledwrapper = styled.div`
 background: #FFFFFF;
@@ -89,31 +90,22 @@ p{
 
 const SignUp = () => {
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
+  const { register, handleSubmit, getValues } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    }
+  });
 
-  const handleFormInput = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  // console.log(form)
-
-  const handleFormSubmission = (e) => {
-    e.preventDefault();
-    if (form.name === '' || form.email === '' || form.password === '') return
-    sessionStorage.setItem('user', JSON.stringify(form));
+  const handleFormSubmission = () => {
+    const user = getValues();
+    if (user.name === '' || user.email === '' || user.password === '') return
+    sessionStorage.setItem('user', JSON.stringify(user));
     toast.success('Sign Up Successful!')
-
     setInterval(() => {
       window.location = '/login'
     }, 1500)
-
   }
 
   return (
@@ -123,11 +115,23 @@ const SignUp = () => {
       </div>
       <div className='form-flex-box'>
         <ToastContainer />
-        <form onSubmit={handleFormSubmission}>
+        <form onSubmit={handleSubmit(handleFormSubmission)}>
           <legend>Welcome to Lilies!</legend>
-          <input type='text' name='name' placeholder='Your First Name' onChange={handleFormInput} />
-          <input type='email' name='email' placeholder='Your Email address' onChange={handleFormInput} />
-          <input type='password' name='password' placeholder='Your Password' onChange={handleFormInput} />
+          <input
+            {...register("name", { required: true })}
+            type='text'
+            placeholder='Your First Name'
+          />
+          <input
+            {...register("email", { required: true })}
+            type='email'
+            placeholder='Your Email address'
+          />
+          <input
+            {...register("password", { required: true })}
+            type='password'
+            placeholder='Your Password'
+          />
           <input type="submit" value="SIGN UP" id='sign-up-button'></input>
         </form>
         <p>Already have an account. <span><Link to='/login' className='login-link'>LOGIN</Link></span></p>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import LeftBg from '../assets/Login/LeftBg.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const Styledwrapper = styled.div`
 display: flex;
@@ -96,31 +97,21 @@ a, p{
 
 const Login = () => {
 
-  const [userLoginData, setUserLoginData] = useState({
-    email: '',
-    password: '',
+  const { register, handleSubmit, getValues } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    }
   })
 
-  const handleFormInput = (e) => {
-    setUserLoginData({
-
-      // Used the spread operator to collect already existing values for email and password 
-      ...userLoginData,
-      // Then, I would update the userLoginData variable with this line of code;
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const handleFormSubmission = (e) => {
-    e.preventDefault();
-    let user = JSON.parse(sessionStorage.getItem('user'))
+  const handleFormSubmission = () => {
+    const userLoginData = getValues();
+    const user = JSON.parse(sessionStorage.getItem('user'));
     if (userLoginData.email === '' || userLoginData.password === '') return
-    // console.log(user)
-
-    if (userLoginData?.email === user?.email && userLoginData?.password === user?.password){
+    if (userLoginData?.email === user?.email && userLoginData?.password === user?.password) {
       toast.success('Login Successful!');
-      setInterval(() => {window.location = '/dashboard'}, 1000)
-    }else{
+      setInterval(() => { window.location = '/dashboard' }, 1000)
+    } else {
       toast.error('Wrong Login Details!')
     }
   }
@@ -128,14 +119,22 @@ const Login = () => {
   return (
     <Styledwrapper>
       <div className='image-flex-box'>
-        <img src={LeftBg} alt='Food'/>
+        <img src={LeftBg} alt='Food' />
       </div>
       <div className='form-flex-box'>
         <ToastContainer />
-        <form onSubmit={handleFormSubmission}>
+        <form onSubmit={handleSubmit(handleFormSubmission)}>
           <legend>Welcome Back!</legend>
-          <input type='email' name='email' placeholder='Your Email address' onChange={handleFormInput}/><br/>
-          <input type='password' name='password' placeholder='Your Password' onChange={handleFormInput}/><br/>
+          <input
+            {...register("email", { required: true })}
+            type='email'
+            placeholder='Your Email address'
+          />
+          <input
+            {...register("password", { required: true })}
+            type='password'
+            placeholder='Your Password'
+          />
           <input type="submit" value="LOGIN" id='login-button' ></input>
         </form>
         <div className='bottom-flex'>
@@ -143,7 +142,6 @@ const Login = () => {
           <p>Forgot Password</p>
         </div>
       </div>
-
     </Styledwrapper>
   )
 }
