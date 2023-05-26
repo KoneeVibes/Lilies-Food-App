@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button } from './Buttons/Index'
 import { theme } from '../configs/app'
 import { Context } from '../context/Context'
+import { useForm } from 'react-hook-form'
 
 const ModalStyler = styled.form`
     position: fixed;
@@ -28,6 +29,15 @@ const ModalStyler = styled.form`
         margin-bottom: 2rem;
     }
 
+    p{
+        font-family: Poppins;
+        font-size: 0.875rem;
+        font-weight: ${theme.font.weight.light};
+        line-height: 33px;
+        color:${theme.colors.red};
+        padding:0 0 2em 2em;
+    }
+
     legend{
         font-family: Poppins;
         font-size: ${theme.font.sizes.ll};
@@ -48,22 +58,82 @@ const ModalStyler = styled.form`
 
 const MakePaymentModal = () => {
 
-    const { setModal } = useContext(Context)
+    const { setModal } = useContext(Context);
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            cardNumber: "",
+            expiryDate: "",
+            cvv: "",
+            cardPin: "",
+        },
+    });
 
-    const handlePaymentAction = (e) => {
-        e.preventDefault();
+    const handlePaymentAction = () => {
         setModal(null);
     }
 
     return (
-        <ModalStyler fullWidth>
+        <ModalStyler fullWidth onSubmit={handleSubmit(handlePaymentAction)} >
             <legend>Checkout</legend>
-            <input placeholder='Card Number'></input>
-            <input placeholder='Exp Date'></input>
-            <input placeholder='CVV/CVV2' ></input>
-            <input placeholder='Card Pin'></input>
+            <input
+                {...register("cardNumber", {
+                    required: "Please enter your thirteen-digit card number.",
+                    minLength: {
+                        value: 13,
+                        message: "Please enter your thirteen-digit card number.",
+                    },
+                    maxLength: {
+                        value: 13,
+                        message: "Please enter your thirteen-digit card number."
+                    }
+                })}
+                type='number'
+                placeholder='Card Number'
+            />
+            {errors.cardNumber && <p>{errors.cardNumber.message}</p>}
+
+            <input
+                {...register("expiryDate", { required: "Please select your card expiry date." })}
+                type='date'
+                placeholder='Exp Date'
+            />
+            {errors.expiryDate && <p>{errors.expiryDate.message}</p>}
+
+            <input
+                {...register("cvv", {
+                    required: "Please enter your three-digit CVV.",
+                    minLength: {
+                        value: 3,
+                        message: "Please enter your three-digit CVV.",
+                    },
+                    maxLength: {
+                        value: 3,
+                        message: "Please enter your three-digit CVV.",
+                    }
+                })}
+                type='number'
+                placeholder='CVV/CVV2'
+            />
+            {errors.cvv && <p>{errors.cvv.message}</p>}
+
+            <input
+                {...register("cardPin", {
+                    required: "Please enter your four-digit PIN.",
+                    minLength: {
+                        value: 4,
+                        message: "Please enter your four-digit PIN."
+                    },
+                    maxLength: {
+                        value: 4,
+                        message: "Please enter your four-digit PIN."
+                    }
+                })}
+                type='number'
+                placeholder='Card Pin'
+            />
+            {errors.cardPin && <p>{errors.cardPin.message}</p>}
+
             <Button
-                onClick={(e) => handlePaymentAction(e)}
                 width={"100%"}
                 textAlign={"center"}
                 fontColor={theme.colors.peach}
